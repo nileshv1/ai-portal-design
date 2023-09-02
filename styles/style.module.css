@@ -26,6 +26,14 @@
   width:300px;
   height: 70px;
 }
+.header_img1 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0px;
+  margin: auto;
+}
 
 .close_btn {
   position: absolute;

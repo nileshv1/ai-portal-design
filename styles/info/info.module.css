@@ -1,8 +1,19 @@
-.css-9r2uyi-MuiGrid-root{
-    height: fit-content !important;
+.css-9r2uyi-MuiGrid-root {
+  height: fit-content !important;
 }
 
 .MuiInputBase-root {
-    border: 2px solid green; /* Remove the outline */
-    /* Add any other styling you want here */
+  border: 2px solid green; /* Remove the outline */
+  /* Add any other styling you want here */
+}
+.whiteBg {
+  background-color: white;
+}
+.header_img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0px;
+  margin: auto;
 }

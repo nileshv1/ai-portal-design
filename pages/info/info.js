@@ -4,7 +4,13 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { grey } from '@mui/material/colors';
 import Image from "next/image";
-import styles from "../../styles/info/info.module.css";
+// import styles from "../../styles/info/info.module.css";
+import BackgroundImage from "@/components/background-image";
+// import styles from "../../styles/style.module.css";
+import { nn_logo, img1, img2, img3, img4 } from "@/public/images";
+import { useEffect, useState } from "react";
+import styles from "../../styles/style.module.css";
+import { useRouter } from "next/router";
 
 const Info = () => {
 
@@ -28,10 +34,39 @@ const Info = () => {
 
         },
     });
+    const imageUrls = [img1, img2, img3, img4];
+  const { push } = useRouter();
+
+  const [randomImageUrl, setRandomImageUrl] = useState([]);
+
+  const getRandomImage = () => {
+    const randomIndex = Math.floor(Math.random() * imageUrls.length);
+    setRandomImageUrl(imageUrls[randomIndex]);
+  };
+
+  const navigateToHome = () => {
+    push("/home");
+  };
+
+  useEffect(() => {
+    getRandomImage();
+  }, [randomImageUrl]);
 
     return (
         <ThemeProvider theme={themeinfo}>
-            <Box sx={{ mx: "auto", width: { xs: "90%", md: "100%" } }} border="0px solid green">
+            
+            <Grid>
+            <BackgroundImage props="true" />
+            <Box sx={{ mx: "auto", width: { xs: "90%", md: "100%" } }} border="0px solid green" 
+            // style={{backgroundImage: setRandomImageUrl}}
+             style={{position: "absolute",
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+                margin: "auto"}}
+               >
+            
                 {/* //first half */}
                 <Grid container spacing={2} sx={{ mb: 2 }} border="0px solid pink">
                     {/* First Block */}
@@ -251,6 +286,7 @@ const Info = () => {
                     </Grid>
                 </Grid>
             </Box>
+            </Grid>
         </ThemeProvider>
     )
 }
