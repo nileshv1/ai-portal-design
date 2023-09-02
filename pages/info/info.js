@@ -46,7 +46,10 @@ const Info = () => {
   const navigateToHome = () => {
     push("/home");
   };
+  const []
+ const handleSend = () => {
 
+ }
   useEffect(() => {
     getRandomImage();
   }, [randomImageUrl]);
@@ -55,13 +58,12 @@ const Info = () => {
         <ThemeProvider theme={themeinfo}>
             <Grid>
             <BackgroundImage props="true" />
-            <Box sx={{ mx: "auto", width: { xs: "90%", md: "100%" } }} border="0px solid green" 
-            // style={{backgroundImage: setRandomImageUrl}}
+            <Box sx={{ mx: "auto", width: { xs: "90%", md: "100%" } ,overflow: 'auto' , height:'100vh'}} border="0px solid green" 
              style={{position: "absolute",
                 left: 0,
                 right: 0,
-                top: 0,
-                bottom: 0,
+                top: 80,
+                bottom: 10,
                 margin: "auto"}}
                >
             
@@ -166,7 +168,7 @@ const Info = () => {
                         {/* /question answer block */}
                         <Grid container item md={11}  minHeight="auto" sx={{ borderRadius: '24px', pt: 2,mb:2, pl: { xs: 2}, pb: 1, pr: 3, 
                             //    visibility: "hidden"
-                                  }} className="css-9r2uyi-MuiGrid-root" className={stylesInfo.whiteBg} border="0px solid purple">
+                                  }}  className={stylesInfo.whiteBg} border="0px solid purple">
                             <Box sx={{ display: "flex",flexDirection: "column", width: { xs: "100%" } }} border="0px solid red">
                                <Box sx={{ display:"flex",flexDirection:"row", alignItems:"center", width: { xs: "100%" }}}>
                                     <Image
@@ -215,7 +217,8 @@ const Info = () => {
                                     />
                                </Box>
                                <Box sx={{ display:"flex",flexDirection:"row-reverse"}}>
-                                    <IconButton aria-label="delete">
+                                    <IconButton aria-label="delete"
+                                    onClick={() => handleSend()}>
                                         <Image
                                             src="/images/send.svg"
                                             width={30}
