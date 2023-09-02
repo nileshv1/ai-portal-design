@@ -1,5 +1,6 @@
 import React from 'react'
-import { Grid, Box, Typography, Button } from '@mui/material'
+import { Grid, Box, Typography, Button,TextField ,IconButton} from '@mui/material'
+import InputAdornment from '@mui/material/InputAdornment';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { grey } from '@mui/material/colors';
 import Image from "next/image";
@@ -28,34 +29,34 @@ const Info = () => {
         <ThemeProvider theme={themeinfo}>
             <Box sx={{ mx: "auto", width: { xs: "90%", md: "100%" } }} border="0px solid green">
                 {/* //first half */}
-                <Grid container spacing={2} sx={{ mb:2}} border="0px solid pink">
+                <Grid container spacing={2} sx={{ mb: 2 }} border="0px solid pink">
                     {/* First Block */}
-                    <Grid container item sm={4} display="flex" justifyContent="center" sx={{pr:{xs:0,md:4}}} border="1px solid orange" >
+                    <Grid container item sm={4} display="flex" justifyContent="center" sx={{ pr: { xs: 0, md: 4 } }} border="1px solid orange" >
                         <Grid container item md={10} sx={{ borderRadius: '24px', pt: 2, pl: 2, pb: 1, pr: 4 }} border="2px solid blue">
-                           <Box sx={{ display: "flex", flexDirection: "column"  }}>
-                           <Box display="flex" alignItems="center">
-                                <Image
-                                    src="/images/person.svg"
-                                    width={40}
-                                    height={40}
-                                    alt="Picture of the Person"
-                                />
-                                <Typography variant="h3">James Bond</Typography>
-                            </Box>
-                            <Box sx={{ pl: 1 }}>
-                                <Typography variant="h5">7 Jan 1986, 36 years old</Typography>
-                                <Typography variant="h5">0479/58 36 59</Typography>
-                                <Typography variant="h5" sx={{ pb: 2 }}>james@bont.com </Typography>
-                                <Typography variant="h5">Kerkstraat 9, Leuven </Typography>
+                            <Box sx={{ display: "flex", flexDirection: "column" }}>
+                                <Box display="flex" alignItems="center">
+                                    <Image
+                                        src="/images/person.svg"
+                                        width={40}
+                                        height={40}
+                                        alt="Picture of the Person"
+                                    />
+                                    <Typography variant="h3">James Bond</Typography>
+                                </Box>
+                                <Box sx={{ pl: 1 }}>
+                                    <Typography variant="h5">7 Jan 1986, 36 years old</Typography>
+                                    <Typography variant="h5">0479/58 36 59</Typography>
+                                    <Typography variant="h5" sx={{ pb: 2 }}>james@bont.com </Typography>
+                                    <Typography variant="h5">Kerkstraat 9, Leuven </Typography>
 
+                                </Box>
                             </Box>
-                           </Box>
                         </Grid>
                     </Grid>
 
                     {/* Second Block */}
                     <Grid container item sm={4} display="flex" justifyContent="center" border="1px solid orange" >
-                        <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2, pl: {xs:2, md:5}, pb: 1, pr: 3 }} border="2px solid blue">
+                        <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} border="2px solid blue">
                             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, width: { xs: "100%" } }} border="0px solid red">
                                 <Box border="0px solid red">
                                     <Box display="flex" sx={{ pb: 2 }} >
@@ -72,10 +73,10 @@ const Info = () => {
                                         </Grid>
                                     </Box>
                                     <Typography variant="h5" sx={{ pb: 2, pl: 2 }}>Kerkstraat 9, Leuven</Typography>
-                                    <Typography variant="h5" sx={{ pl: 2, mb:{xs:2, md:0} }}>1/5/2023 – 1/5/2024</Typography>
+                                    <Typography variant="h5" sx={{ pl: 2, mb: { xs: 2, md: 0 } }}>1/5/2023 – 1/5/2024</Typography>
                                 </Box>
 
-                                <Box sx={{ display: "flex", flexDirection: "column", pt:1 }} border="0px solid green">
+                                <Box sx={{ display: "flex", flexDirection: "column", pt: 1 }} border="0px solid green">
                                     <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[600] }}>{"Policy Holder".toLowerCase()}</Button>
                                     <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[900] }}>Content</Button>
                                     <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[900] }}>Leg Assist</Button>
@@ -88,7 +89,7 @@ const Info = () => {
 
                     {/* third Block */}
                     <Grid container item sm={4} display="flex" justifyContent="center" border="1px solid orange" >
-                        <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2, pl: {xs:2, md:5}, pb: 1, pr: 3 }} border="2px solid blue">
+                        <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} border="2px solid blue">
                             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, width: { xs: "100%" } }} border="0px solid red">
                                 <Box border="0px solid red">
                                     <Box display="flex" sx={{ pb: 2 }} >
@@ -106,10 +107,10 @@ const Info = () => {
                                     </Box>
                                     <Typography variant="h5" sx={{ pl: 2 }}>VW Golf</Typography>
                                     <Typography variant="h5" sx={{ pl: 2 }}>1-ABC-123</Typography>
-                                    <Typography variant="h5" sx={{ pl: 2, mb:{xs:2, md:0} }}>1/5/2023 – 1/5/2024</Typography>
+                                    <Typography variant="h5" sx={{ pl: 2, mb: { xs: 2, md: 0 } }}>1/5/2023 – 1/5/2024</Typography>
                                 </Box>
 
-                                <Box sx={{ display: "flex", flexDirection: "column", pt:1 }} border="0px solid green">
+                                <Box sx={{ display: "flex", flexDirection: "column", pt: 1 }} border="0px solid green">
                                     <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[600] }}>Main Driver</Button>
                                     <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[900] }}>Omnium</Button>
                                     <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[900] }}>Protect</Button>
@@ -121,11 +122,11 @@ const Info = () => {
                 </Grid>
 
                 {/* //second half */}
-                <Grid container spacing={2}  sx={{display:"flex", flexDirection:{xs:"column-reverse", sm:"row"}}} >
+                <Grid container spacing={2} sx={{ display: "flex", flexDirection: { xs: "column-reverse", sm: "row" } }} >
 
                     {/* search Block */}
                     <Grid container item sm={8} display="flex" justifyContent="center" border="1px solid orange" >
-                        <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2, pl: {xs:2, md:5}, pb: 1, pr: 3 }} border="2px solid blue">
+                        <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2,mb:2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} border="2px solid blue">
                             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, width: { xs: "100%" } }} border="0px solid red">
                                 <Box border="0px solid red">
                                     <Box display="flex" sx={{ pb: 2 }} >
@@ -142,10 +143,10 @@ const Info = () => {
                                         </Grid>
                                     </Box>
                                     <Typography variant="h5" sx={{ pb: 2, pl: 2 }}>Kerkstraat 9, Leuven</Typography>
-                                    <Typography variant="h5" sx={{ pl: 2, mb:{xs:2, md:0} }}>1/5/2023 – 1/5/2024</Typography>
+                                    <Typography variant="h5" sx={{ pl: 2, mb: { xs: 2, md: 0 } }}>1/5/2023 – 1/5/2024</Typography>
                                 </Box>
 
-                                <Box sx={{ display: "flex", flexDirection: "column", pt:1 }} border="0px solid green">
+                                <Box sx={{ display: "flex", flexDirection: "column", pt: 1 }} border="0px solid green">
                                     <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[600] }}>{"Policy Holder".toLowerCase()}</Button>
                                     <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[900] }}>Content</Button>
                                     <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[900] }}>Leg Assist</Button>
@@ -153,58 +154,92 @@ const Info = () => {
                                 </Box>
                             </Box>
                         </Grid>
-                        
+
+                        {/* //type your question */}
+                        <Grid container item md={11} sx={{ borderRadius: '24px',mb:2, pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} border="2px solid blue">
+                            <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: "column", width: { xs: "100%" } }} border="0px solid red">
+                               <Box sx={{ display: "flex", flexDirection: "row" }}>
+                                   <TextField
+                                        id="outlined-multiline-static"
+                                        multiline
+                                        fullWidth
+                                        rows={1}
+                                        sx={{ outline:"none", border: 'none'}}
+                                        InputProps={{
+                                            startAdornment: <InputAdornment position="start"><Image
+                                            src="/images/search.svg"
+                                            width={30}
+                                            height={30}
+                                            alt="Picture of the back"
+                                        /></InputAdornment>,
+                                          }}
+                                        defaultValue="Is he covered for storm ?"                            
+                                    />
+                               </Box>
+                               <Box sx={{ display:"flex",flexDirection:"row-reverse"}}>
+                                    <IconButton aria-label="delete">
+                                        <Image
+                                            src="/images/send.svg"
+                                            width={30}
+                                            height={30}
+                                            alt="Picture of the back"
+                                        />
+                                    </IconButton>
+                               </Box>
+                            </Box>
+                        </Grid>
+
                     </Grid>
 
 
                     {/* vertical Block */}
                     <Grid container item sm={4} display="flex" justifyContent="center" border="1px solid orange" >
                         {/* /fourth block */}
-                        <Grid container item md={11} sx={{ borderRadius: '24px',mb:2, pt: 2, pl: {xs:2, md:5}, pb: 1, pr: 3 }}  border="2px solid blue">
-                            <Box sx={{ display: "flex", flexDirection:"column",width: { xs: "100%" }, pr:{lg:8, xs:1, sm:2}}} border="0px solid red">
-                                <Typography variant="h3" sx={{mb:1}}>Attention Points</Typography>
-                                <Box sx={{ display: "flex", flexDirection:"row" ,mb:1}}>
+                        <Grid container item md={11} sx={{ borderRadius: '24px', mb: 2, pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} border="2px solid blue">
+                            <Box sx={{ display: "flex", flexDirection: "column", width: { xs: "100%" }, pr: { lg: 8, xs: 1, sm: 2 } }} border="0px solid red">
+                                <Typography variant="h3" sx={{ mb: 1 }}>Attention Points</Typography>
+                                <Box sx={{ display: "flex", flexDirection: "row", mb: 1 }}>
                                     <Image
                                         src="/images/back.svg"
                                         width={30}
                                         height={30}
                                         alt="Picture of the back"
                                     />
-                                    <Typography variant="h5" sx={{pl:1}}>Remind the client to pay his invoice: 234€ for his H&F Policy</Typography>
+                                    <Typography variant="h5" sx={{ pl: 1 }}>Remind the client to pay his invoice: 234€ for his H&F Policy</Typography>
                                 </Box>
-                                <Box sx={{ display: "flex", flexDirection:"row" }}>
+                                <Box sx={{ display: "flex", flexDirection: "row" }}>
                                     <Image
                                         src="/images/back.svg"
                                         width={30}
                                         height={30}
                                         alt="Picture of the back"
                                     />
-                                    <Typography variant="h5" sx={{pl:1}}>Check the email address, it might be wrong</Typography>
+                                    <Typography variant="h5" sx={{ pl: 1 }}>Check the email address, it might be wrong</Typography>
                                 </Box>
                             </Box>
                         </Grid>
 
                         {/* /fifth block */}
-                        <Grid container item md={11} sx={{ borderRadius: '24px',mb:2, pt: 2, pl: {xs:2, md:5}, pb: 1, pr: 3 }}  border="2px solid blue">
-                            <Box sx={{ display: "flex", flexDirection:"column",width: { xs: "100%" }, pr:{lg:7, xs:1, sm:2}}} border="0px solid red">
-                                <Typography variant="h3" sx={{mb:1}}>Attention Points</Typography>
-                                <Box sx={{ display: "flex", flexDirection:"row" ,mb:1}}>
+                        <Grid container item md={11} sx={{ borderRadius: '24px', mb: 2, pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} border="2px solid blue">
+                            <Box sx={{ display: "flex", flexDirection: "column", width: { xs: "100%" }, pr: { lg: 7, xs: 1, sm: 2 } }} border="0px solid red">
+                                <Typography variant="h3" sx={{ mb: 1 }}>Attention Points</Typography>
+                                <Box sx={{ display: "flex", flexDirection: "row", mb: 1 }}>
                                     <Image
                                         src="/images/back.svg"
                                         width={30}
                                         height={30}
                                         alt="Picture of the back"
                                     />
-                                    <Typography variant="h5" sx={{pl:1}}>Risk or churn. Propose “Summer” discount.</Typography>
+                                    <Typography variant="h5" sx={{ pl: 1 }}>Risk or churn. Propose “Summer” discount.</Typography>
                                 </Box>
-                                <Box sx={{ display: "flex", flexDirection:"row" }}>
+                                <Box sx={{ display: "flex", flexDirection: "row" }}>
                                     <Image
                                         src="/images/back.svg"
                                         width={30}
                                         height={30}
                                         alt="Picture of the back"
                                     />
-                                    <Typography variant="h5" sx={{pl:1}}>Upsell Car Policy: Mini-Omnium upgrade to Omnium is an additional 15 euros per month.</Typography>
+                                    <Typography variant="h5" sx={{ pl: 1 }}>Upsell Car Policy: Mini-Omnium upgrade to Omnium is an additional 15 euros per month.</Typography>
                                 </Box>
                             </Box>
                         </Grid>
