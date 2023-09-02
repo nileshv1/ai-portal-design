@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.7",
     "@mui/icons-material": "^5.14.7",
     "@mui/styles": "^5.14.7",
     "next": "13.4.19",
@@ -16,6 +19,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "prettier": "^3.0.3",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.7"
