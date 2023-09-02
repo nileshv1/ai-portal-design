@@ -1,0 +1,8 @@
+.css-9r2uyi-MuiGrid-root{
+    height: fit-content !important;
+}
+
+.MuiInputBase-root {
+    border: 2px solid green; /* Remove the outline */
+    /* Add any other styling you want here */
+}

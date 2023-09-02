@@ -4,6 +4,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { grey } from '@mui/material/colors';
 import Image from "next/image";
+import styles from "../../styles/info/info.module.css";
 
 const Info = () => {
 
@@ -132,7 +133,7 @@ const Info = () => {
                         {/* /question answer block */}
                         <Grid container item md={11}  minHeight="auto" sx={{ borderRadius: '24px', pt: 2,mb:2, pl: { xs: 2}, pb: 1, pr: 3, 
                             //    visibility: "hidden"
-                                  }} border="2px solid blue">
+                                  }} className="css-9r2uyi-MuiGrid-root" border="2px solid purple">
                             <Box sx={{ display: "flex",flexDirection: "column", width: { xs: "100%" } }} border="0px solid red">
                                <Box sx={{ display:"flex",flexDirection:"row", alignItems:"center", width: { xs: "100%" }}}>
                                     <Image
