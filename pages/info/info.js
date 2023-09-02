@@ -46,9 +46,12 @@ const Info = () => {
   const navigateToHome = () => {
     push("/home");
   };
-  const []
+  const [que, setQue] = useState(false);
  const handleSend = () => {
+     alert("clicked")
 
+       setQue(!que);
+       console.log(que, "que")
  }
   useEffect(() => {
     getRandomImage();
@@ -167,7 +170,7 @@ const Info = () => {
                     <Grid container item sm={8} display="flex" justifyContent="center" border="0px solid orange" >
                         {/* /question answer block */}
                         <Grid container item md={11}  minHeight="auto" sx={{ borderRadius: '24px', pt: 2,mb:2, pl: { xs: 2}, pb: 1, pr: 3, 
-                            //    visibility: "hidden"
+                               visibility: `que?'block':"hidden"`
                                   }}  className={stylesInfo.whiteBg} border="0px solid purple">
                             <Box sx={{ display: "flex",flexDirection: "column", width: { xs: "100%" } }} border="0px solid red">
                                <Box sx={{ display:"flex",flexDirection:"row", alignItems:"center", width: { xs: "100%" }}}>
