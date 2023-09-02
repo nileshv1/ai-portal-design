@@ -21,6 +21,9 @@ const Info = () => {
                 fontSize: 16,
                 // fontWeight: "bold"
             },
+            h4:{
+                fontSize:18
+            }
 
         },
     });
@@ -126,32 +129,33 @@ const Info = () => {
 
                     {/* search Block */}
                     <Grid container item sm={8} display="flex" justifyContent="center" border="1px solid orange" >
-                        <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2,mb:2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} border="2px solid blue">
-                            <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, width: { xs: "100%" } }} border="0px solid red">
-                                <Box border="0px solid red">
-                                    <Box display="flex" sx={{ pb: 2 }} >
-                                        <Image
-                                            src="/images/home.svg"
-                                            width={50}
-                                            height={50}
-                                            alt="Picture of the author"
-
-                                        />
-                                        <Grid sx={{ ml: 2 }}>
-                                            <Typography variant="h3">H&F P2</Typography>
-                                            <Typography variant="h5">30001256</Typography>
-                                        </Grid>
+                        {/* /question answer block */}
+                        <Grid container item md={11}  minHeight="auto" sx={{ borderRadius: '24px', pt: 2,mb:2, pl: { xs: 2}, pb: 1, pr: 3, 
+                            //    visibility: "hidden"
+                                  }} border="2px solid blue">
+                            <Box sx={{ display: "flex",flexDirection: "column", width: { xs: "100%" } }} border="0px solid red">
+                               <Box sx={{ display:"flex",flexDirection:"row", alignItems:"center", width: { xs: "100%" }}}>
+                                    <Image
+                                        src="/images/answer.svg"
+                                        width={30}
+                                        height={30}
+                                        alt="Picture of the back"
+                                    />
+                                    <Box>
+                                        <Typography variant="h4" sx={{  ml:1,mb:{xs:1}, pr:{xs:1,md:18},pt:1,pl:1,pb:1, width:"74%",backgroundColor:grey[300] }}>There is an open invoice for Policy 30001256. James Bond still needs to pay 234€</Typography>
                                     </Box>
-                                    <Typography variant="h5" sx={{ pb: 2, pl: 2 }}>Kerkstraat 9, Leuven</Typography>
-                                    <Typography variant="h5" sx={{ pl: 2, mb: { xs: 2, md: 0 } }}>1/5/2023 – 1/5/2024</Typography>
-                                </Box>
-
-                                <Box sx={{ display: "flex", flexDirection: "column", pt: 1 }} border="0px solid green">
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[600] }}>{"Policy Holder".toLowerCase()}</Button>
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[900] }}>Content</Button>
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[900] }}>Leg Assist</Button>
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[900] }}>family</Button>
-                                </Box>
+                               </Box>
+                               <Box sx={{ display:"flex",flexDirection:"row-reverse", alignItems:"center"}}>
+                                    <Image
+                                        src="/images/question.svg"
+                                        width={30}
+                                        height={30}
+                                        alt="Picture of the back"
+                                    />
+                                    <Box>
+                                        <Typography variant="h4" sx={{ mb: 1, ml:1,pr:2,pt:1,pl:1,pb:1,mr:1,backgroundColor:grey[900], color:"white" }}>Is he covered for storm ? </Typography>
+                                    </Box>
+                               </Box>
                             </Box>
                         </Grid>
 
