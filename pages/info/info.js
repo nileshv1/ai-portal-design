@@ -4,12 +4,11 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { grey } from '@mui/material/colors';
 import Image from "next/image";
-// import styles from "../../styles/info/info.module.css";
+import stylesInfo from "../../styles/info/info.module.css";
 import BackgroundImage from "@/components/background-image";
-// import styles from "../../styles/style.module.css";
 import { nn_logo, img1, img2, img3, img4 } from "@/public/images";
 import { useEffect, useState } from "react";
-import styles from "../../styles/style.module.css";
+// import styles from "../../styles/style.module.css";
 import { useRouter } from "next/router";
 
 const Info = () => {
@@ -54,7 +53,6 @@ const Info = () => {
 
     return (
         <ThemeProvider theme={themeinfo}>
-            
             <Grid>
             <BackgroundImage props="true" />
             <Box sx={{ mx: "auto", width: { xs: "90%", md: "100%" } }} border="0px solid green" 
@@ -70,8 +68,8 @@ const Info = () => {
                 {/* //first half */}
                 <Grid container spacing={2} sx={{ mb: 2 }} border="0px solid pink">
                     {/* First Block */}
-                    <Grid container item sm={4} display="flex" justifyContent="center" sx={{ pr: { xs: 0, md: 4 } }} border="1px solid orange" >
-                        <Grid container item md={10} sx={{ borderRadius: '24px', pt: 2, pl: 2, pb: 1, pr: 4 }} border="2px solid blue">
+                    <Grid container item sm={4} display="flex" justifyContent="center" sx={{ pr: { xs: 0, md: 4 } }} border="0px solid orange" >
+                        <Grid container item md={10} sx={{ borderRadius: '24px', pt: 2, pl: 2, pb: 1, pr: 4 }} className={stylesInfo.whiteBg} border="0px solid blue">
                             <Box sx={{ display: "flex", flexDirection: "column" }}>
                                 <Box display="flex" alignItems="center">
                                     <Image
@@ -94,8 +92,8 @@ const Info = () => {
                     </Grid>
 
                     {/* Second Block */}
-                    <Grid container item sm={4} display="flex" justifyContent="center" border="1px solid orange" >
-                        <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} border="2px solid blue">
+                    <Grid container item sm={4} display="flex" justifyContent="center" border="0px solid orange" >
+                        <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} className={stylesInfo.whiteBg} border="0px solid blue">
                             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, width: { xs: "100%" } }} border="0px solid red">
                                 <Box border="0px solid red">
                                     <Box display="flex" sx={{ pb: 2 }} >
@@ -127,8 +125,8 @@ const Info = () => {
 
 
                     {/* third Block */}
-                    <Grid container item sm={4} display="flex" justifyContent="center" border="1px solid orange" >
-                        <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} border="2px solid blue">
+                    <Grid container item sm={4} display="flex" justifyContent="center" border="0px solid orange" >
+                        <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} className={stylesInfo.whiteBg} border="0px solid blue">
                             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, width: { xs: "100%" } }} border="0px solid red">
                                 <Box border="0px solid red">
                                     <Box display="flex" sx={{ pb: 2 }} >
@@ -164,11 +162,11 @@ const Info = () => {
                 <Grid container spacing={2} sx={{ display: "flex", flexDirection: { xs: "column-reverse", sm: "row" } }} >
 
                     {/* search Block */}
-                    <Grid container item sm={8} display="flex" justifyContent="center" border="1px solid orange" >
+                    <Grid container item sm={8} display="flex" justifyContent="center" border="0px solid orange" >
                         {/* /question answer block */}
                         <Grid container item md={11}  minHeight="auto" sx={{ borderRadius: '24px', pt: 2,mb:2, pl: { xs: 2}, pb: 1, pr: 3, 
                             //    visibility: "hidden"
-                                  }} className="css-9r2uyi-MuiGrid-root" border="2px solid purple">
+                                  }} className="css-9r2uyi-MuiGrid-root" className={stylesInfo.whiteBg} border="0px solid purple">
                             <Box sx={{ display: "flex",flexDirection: "column", width: { xs: "100%" } }} border="0px solid red">
                                <Box sx={{ display:"flex",flexDirection:"row", alignItems:"center", width: { xs: "100%" }}}>
                                     <Image
@@ -196,7 +194,7 @@ const Info = () => {
                         </Grid>
 
                         {/* //type your question */}
-                        <Grid container item md={11} sx={{ borderRadius: '24px',mb:2, pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} border="2px solid blue">
+                        <Grid container item md={11} sx={{ borderRadius: '24px',mb:2, pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} className={stylesInfo.whiteBg} border="0px solid blue">
                             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: "column", width: { xs: "100%" } }} border="0px solid red">
                                <Box sx={{ display: "flex", flexDirection: "row" }}>
                                    <TextField
@@ -233,9 +231,9 @@ const Info = () => {
 
 
                     {/* vertical Block */}
-                    <Grid container item sm={4} display="flex" justifyContent="center" border="1px solid orange" >
+                    <Grid container item sm={4} display="flex" justifyContent="center" border="0px solid orange" >
                         {/* /fourth block */}
-                        <Grid container item md={11} sx={{ borderRadius: '24px', mb: 2, pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} border="2px solid blue">
+                        <Grid container item md={11} sx={{ borderRadius: '24px', mb: 2, pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} className={stylesInfo.whiteBg} border="0px solid blue">
                             <Box sx={{ display: "flex", flexDirection: "column", width: { xs: "100%" }, pr: { lg: 8, xs: 1, sm: 2 } }} border="0px solid red">
                                 <Typography variant="h3" sx={{ mb: 1 }}>Attention Points</Typography>
                                 <Box sx={{ display: "flex", flexDirection: "row", mb: 1 }}>
@@ -260,7 +258,7 @@ const Info = () => {
                         </Grid>
 
                         {/* /fifth block */}
-                        <Grid container item md={11} sx={{ borderRadius: '24px', mb: 2, pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} border="2px solid blue">
+                        <Grid container item md={11} sx={{ borderRadius: '24px', mb: 2, pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} className={stylesInfo.whiteBg} border="0px solid blue">
                             <Box sx={{ display: "flex", flexDirection: "column", width: { xs: "100%" }, pr: { lg: 7, xs: 1, sm: 2 } }} border="0px solid red">
                                 <Typography variant="h3" sx={{ mb: 1 }}>Attention Points</Typography>
                                 <Box sx={{ display: "flex", flexDirection: "row", mb: 1 }}>
