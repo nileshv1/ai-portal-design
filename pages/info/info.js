@@ -57,7 +57,7 @@ const Info = () => {
   console.log(que, "que")
     return (
         <ThemeProvider theme={themeinfo}>
-            <Grid>
+            <Grid >
             <BackgroundImage props="true" />
             <Box sx={{ mx: "auto", width: { xs: "90%", md: "100%" } ,overflow: 'auto' , height:'100vh'}} border="0px solid green" 
              style={{position: "absolute",
@@ -69,7 +69,7 @@ const Info = () => {
                >
             
                 {/* //first half */}
-                <Grid container spacing={2} sx={{ mb: 2 }} border="0px solid pink">
+                <Grid container spacing={2} sx={{ mb: 2 }} border="0px solid pink" mt={4}>
                     {/* First Block */}
                     <Grid container item sm={4} display="flex" justifyContent="center" sx={{ pr: { xs: 0, md: 4 } }} border="0px solid orange" >
                         <Grid container item md={10} sx={{ borderRadius: '24px', pt: 2, pl: 2, pb: 1, pr: 4 }} className={stylesInfo.whiteBg} border="0px solid blue">
