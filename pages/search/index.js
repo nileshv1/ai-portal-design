@@ -4,6 +4,7 @@ import styles from "../../styles/style.module.css";
 import BackgroundImage from "@/components/background-image";
 import { makeStyles } from "@mui/styles";
 import SearchIcon from "@mui/icons-material/Search";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +21,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const Search = () => {
+
+  const { push } = useRouter();
+
+const navigateInfo = () =>{
+push('/info')
+}
+
   const classes = useStyles();
   return (
     <Grid>
@@ -40,11 +49,12 @@ const Search = () => {
             top: 0,
             margin: "auto",
             right: 0,
-
+            color:'black',
             borderRadius: 5,
-          }}
+        
+         }}
         >
-          <SearchIcon />
+          <SearchIcon onClick={navigateInfo} sx={{cursor:'pointer'}}/>
           <IconButton sx={{ p: "10px" }} aria-label="menu"></IconButton>
           <InputBase
             sx={{ ml: 1, flex: 1 }}
