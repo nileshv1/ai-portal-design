@@ -1,12 +1,13 @@
 import Layout from "@/layout";
 import Head from 'next/head';
+import '../index.css'
 
 function App({ Component, pageProps}) {
   return (
     <Layout>
-      <Head>
+      {/* <Head>
         <body style={{margin:0}} />
-      </Head>
+      </Head> */}
       <Component {...pageProps} />
     </Layout>
   );
