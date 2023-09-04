@@ -7,7 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  customClass: {
     width: 400,
     height: 70,
     "@media only screen and (max-width: 768px)": {
@@ -36,10 +36,10 @@ const onKeyPress = (e) => { if (e.key == 'Enter') { push('/info');e.preventDefau
   const classes = useStyles();
   return (
     <Grid>
-      <BackgroundImage props={true} />
-      <Grid item classes={styles.header_img}>
+      <BackgroundImage props={true}/>
+      <Grid item>
         <Paper
-          className={classes.root}
+          classes={{root:classes.customClass}}
           component="form"
           sx={{
             p: "2px 4px",
