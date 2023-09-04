@@ -14,6 +14,7 @@ const BackgroundImage = ({ props }) => {
 
   const getRandomImage = () => {
     let randomImage;
+    console.log("Hi")
     randomImage = JSON.parse(localStorage.getItem("randomImage"));
     if (randomImage !== undefined && randomImage < 4) {
       const items = randomImage + 1;

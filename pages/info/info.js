@@ -59,12 +59,12 @@ const Info = () => {
         <ThemeProvider theme={themeinfo}>
             <Grid >
             <BackgroundImage props="true" />
-            <Box sx={{ mx: "auto", width: { xs: "90%", md: "100%" } ,overflow: 'auto' , height:'100vh'}} border="0px solid green" 
+            <Box sx={{ mx: "auto", width: { xs: "90%", md: "100%" } ,overflow: 'auto' , height:'100vh'}} border="2px solid green" 
              style={{position: "absolute",
                 left: 0,
                 right: 0,
                 top: 80,
-                bottom: 10,
+                bottom: 60,
                 margin: "auto"}}
                >
             
@@ -197,7 +197,7 @@ const Info = () => {
                         </Grid>
 
                         {/* //type your question */}
-                        <Grid container item md={11} sx={{ borderRadius: '24px',mb:2, pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} className={stylesInfo.whiteBg} border="0px solid blue">
+                        <Grid container item md={11} sx={{ borderRadius: '24px',mb:2, pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} className={stylesInfo.whiteBg} border="2px solid blue">
                             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: "column", width: { xs: "100%" } }} border="0px solid red">
                                <Box sx={{ display: "flex", flexDirection: "row" }}>
                                    <TextField

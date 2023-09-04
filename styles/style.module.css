@@ -40,6 +40,8 @@
   top: 12px;
   margin: auto;
   right: 13px;
+  cursor: pointer;
+  z-index: 9;
 }
 
 
