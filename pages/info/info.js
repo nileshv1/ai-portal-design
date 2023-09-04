@@ -49,12 +49,10 @@ const Info = () => {
   const [que, setQue] = useState(false);
  const handleSend = () => {
        setQue(!que);
-       console.log(que, "que")
  }
   useEffect(() => {
     getRandomImage();
   }, [randomImageUrl]);
-  console.log(que, "que")
     return (
         <ThemeProvider theme={themeinfo}>
             <Grid >

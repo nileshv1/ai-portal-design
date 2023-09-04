@@ -13,7 +13,6 @@ export default function About() {
   const getRandomImage = () => {
     const randomIndex = Math.floor(Math.random() * imageUrls.length);
     setRandomImageUrl(imageUrls[randomIndex]);
-    console.log(randomImageUrl, "randomImageUrl")
   };
 
   useEffect(() => {
