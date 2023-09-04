@@ -38,12 +38,13 @@ const BackgroundImage = ({ props }) => {
 
   return (
     <Grid>
+     
       <Image
         className={styles.bg_img}
-        src={randomImageUrl}
+        src={randomImageUrl ? randomImageUrl : imageUrls[0]}
         alt="Banner Image"
       />
-      {props == "true" ? (
+      {props == true ? (
         <button onClick={getRandomImage} className={styles.close_btn}>
           x
         </button>

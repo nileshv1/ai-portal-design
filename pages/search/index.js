@@ -24,16 +24,19 @@ const useStyles = makeStyles((theme) => ({
 
 const Search = () => {
 
-  const { push } = useRouter();
+const { push } = useRouter();
 
 const navigateInfo = () =>{
 push('/info')
 }
 
+const onKeyPress = (e) => { if (e.key == 'Enter') { push('/info');e.preventDefault()}
+;};
+
   const classes = useStyles();
   return (
     <Grid>
-      <BackgroundImage props="true" />
+      <BackgroundImage props={true} />
       <Grid item classes={styles.header_img}>
         <Paper
           className={classes.root}
@@ -42,7 +45,6 @@ push('/info')
             p: "2px 4px",
             display: "flex",
             alignItems: "center",
-
             position: "absolute",
             left: 0,
             bottom: 325,
@@ -50,9 +52,9 @@ push('/info')
             margin: "auto",
             right: 0,
             color:'black',
-            borderRadius: 5,
-        
+            borderRadius: 5        
          }}
+         onKeyPress={onKeyPress}
         >
           <SearchIcon onClick={navigateInfo} sx={{cursor:'pointer'}}/>
           <IconButton sx={{ p: "10px" }} aria-label="menu"></IconButton>
@@ -60,6 +62,7 @@ push('/info')
             sx={{ ml: 1, flex: 1 }}
             placeholder="Search for a client"
             inputProps={{ "aria-label": "search google maps" }}
+          
           />
           <IconButton
             type="button"

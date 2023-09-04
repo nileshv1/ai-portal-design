@@ -54,7 +54,7 @@ const Info = () => {
     return (
         <ThemeProvider theme={themeinfo}>
             <Grid >
-            <BackgroundImage props="true" />
+            <BackgroundImage props={true} />
             <Box sx={{ mx: "auto", width: { xs: "90%", md: "100%" } }} border="0px solid green" 
             // style={{backgroundImage: setRandomImageUrl}}
              style={{position: "absolute",

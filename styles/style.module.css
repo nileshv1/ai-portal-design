@@ -40,6 +40,11 @@
   top: 12px;
   margin: auto;
   right: 13px;
+  cursor: pointer;
+}
+
+.cursor{
+  cursor: pointer;
 }
 
 
