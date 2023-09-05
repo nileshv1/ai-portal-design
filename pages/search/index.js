@@ -60,6 +60,7 @@ const Search = () => {
             inputProps={{ "aria-label": "search google maps" }}
           
           />
+          <SearchBox/>
           <IconButton
             type="button"
             sx={{ p: "10px" }}
