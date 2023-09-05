@@ -1,44 +1,40 @@
-import { Grid, IconButton, InputBase, Paper } from "@mui/material";
+import {
+  Autocomplete,
+  Grid,
+  IconButton,
+  InputBase,
+  Paper,
+  TextField,
+} from "@mui/material";
 import React from "react";
 import styles from "../../styles/style.module.css";
 import BackgroundImage from "@/components/background-image";
-import { makeStyles } from "@mui/styles";
+
 import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
-
-const useStyles = makeStyles((theme) => ({
-  customClass: {
-    width: 400,
-    height: 70,
-    "@media only screen and (max-width: 768px)": {
-      width: 300,
-      height: 50,
-    },
-    "@media only screen and (max-width: 600px)": {
-      width: 200,
-      height: 50,
-    },
-  },
-}));
-
+import { Height } from "@mui/icons-material";
 
 const Search = () => {
+  const { push } = useRouter();
 
-const { push } = useRouter();
+  const navigateInfo = () => {
+    push("/info");
+  };
 
-const navigateInfo = () =>{
-push('/info')
-}
+  const countries = ["United States", "Canada", "United Kingdom", "Australia"];
 
-const onKeyPress = (e) => { if (e.key == 'Enter') { push('/info');e.preventDefault()}
-;};
+  const onKeyPress = (e) => {
+    if (e.key == "Enter") {
+      push("/info");
+      e.preventDefault();
+    }
+  };
 
-  const classes = useStyles();
   return (
     <Grid>
-      <BackgroundImage props={true}/>
+      <BackgroundImage props={true} />
       <Grid item>
-        <Paper
+        {/* <Paper
           classes={{root:classes.customClass}}
           component="form"
           sx={{
@@ -55,9 +51,9 @@ const onKeyPress = (e) => { if (e.key == 'Enter') { push('/info');e.preventDefau
             borderRadius: 5        
          }}
          onKeyPress={onKeyPress}
-        >
-          <SearchIcon onClick={navigateInfo} sx={{cursor:'pointer'}}/>
-          <IconButton sx={{ p: "10px" }} aria-label="menu"></IconButton>
+        > */}
+        <SearchIcon onClick={navigateInfo} sx={{ cursor: "pointer" }} />
+        {/* <IconButton sx={{ p: "10px" }} aria-label="menu"></IconButton>
           <InputBase
             sx={{ ml: 1, flex: 1 }}
             placeholder="Search for a client"
@@ -68,8 +64,36 @@ const onKeyPress = (e) => { if (e.key == 'Enter') { push('/info');e.preventDefau
             type="button"
             sx={{ p: "10px" }}
             aria-label="search"
-          ></IconButton>
-        </Paper>
+          ></IconButton> */}
+        <Autocomplete
+          sx={{
+            display: "inline-block",
+            "& input": {
+              bgcolor: "#fff",
+            },
+            "& label": {
+              fontSize: { xs: 17, md: 20 },
+
+              fontWeight: 400,
+              color: "black",
+            },
+            "& fieldset": {
+              border: "none",
+            },
+          }}
+          id="search-countries"
+          options={countries}
+          className={styles.header_img}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Search for a client"
+              variant="outlined"
+              onKeyPress={onKeyPress}
+            />
+          )}
+        />
+        {/* </Paper> */}
       </Grid>
     </Grid>
   );
