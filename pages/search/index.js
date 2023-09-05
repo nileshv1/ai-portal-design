@@ -5,6 +5,7 @@ import BackgroundImage from "@/components/background-image";
 import { makeStyles } from "@mui/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
+import SearchBox from "@/components/background-image/SearchBox";
 
 const useStyles = makeStyles((theme) => ({
   customClass: {
@@ -64,6 +65,7 @@ const onKeyPress = (e) => { if (e.key == 'Enter') { push('/info');e.preventDefau
             inputProps={{ "aria-label": "search google maps" }}
           
           />
+          <SearchBox/>
           <IconButton
             type="button"
             sx={{ p: "10px" }}
