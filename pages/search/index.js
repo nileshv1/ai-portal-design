@@ -5,6 +5,8 @@ import BackgroundImage from "@/components/background-image";
 import { makeStyles } from "@mui/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
+import { connect, useDispatch, useSelector, Provider } from "react-redux";
+import { getUsersData } from "../feature/user/userSlice";
 
 const useStyles = makeStyles((theme) => ({
   customClass: {
@@ -24,22 +26,25 @@ const useStyles = makeStyles((theme) => ({
 
 const Search = () => {
 
-const { push } = useRouter();
+  const { push } = useRouter();
 
-const navigateInfo = () =>{
-push('/info')
-}
-
-const onKeyPress = (e) => { if (e.key == 'Enter') { push('/info');e.preventDefault()}
-;};
+  const navigateInfo = () => {
+    push('/info')
+  }
+  const dispatch = useDispatch();
+  const onKeyPress = (e) => {
+    if (e.key == 'Enter') { push('/info'); e.preventDefault(); dispatch(getUsersData()); }
+    ;
+  };
 
   const classes = useStyles();
+
   return (
     <Grid>
-      <BackgroundImage props={true}/>
+      <BackgroundImage props={true} />
       <Grid item>
         <Paper
-          classes={{root:classes.customClass}}
+          classes={{ root: classes.customClass }}
           component="form"
           sx={{
             p: "2px 4px",
@@ -51,18 +56,18 @@ const onKeyPress = (e) => { if (e.key == 'Enter') { push('/info');e.preventDefau
             top: 0,
             margin: "auto",
             right: 0,
-            color:'black',
-            borderRadius: 5        
-         }}
-         onKeyPress={onKeyPress}
+            color: 'black',
+            borderRadius: 5
+          }}
+          onKeyPress={onKeyPress}
         >
-          <SearchIcon onClick={navigateInfo} sx={{cursor:'pointer'}}/>
+          <SearchIcon onClick={navigateInfo} sx={{ cursor: 'pointer' }} />
           <IconButton sx={{ p: "10px" }} aria-label="menu"></IconButton>
           <InputBase
             sx={{ ml: 1, flex: 1 }}
             placeholder="Search for a client"
             inputProps={{ "aria-label": "search google maps" }}
-          
+
           />
           <IconButton
             type="button"
