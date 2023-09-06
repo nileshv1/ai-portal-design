@@ -5,8 +5,8 @@ import BackgroundImage from "@/components/background-image";
 import { makeStyles } from "@mui/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
-import { connect, useDispatch, useSelector, Provider } from "react-redux";
-import { getUsersData } from "../feature/user/userSlice";
+import SearchBox from "@/components/background-image/SearchBox";
+import { useSelector, useDispatch } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   customClass: {
@@ -61,19 +61,20 @@ const Search = () => {
           }}
           onKeyPress={onKeyPress}
         >
-          <SearchIcon onClick={navigateInfo} sx={{ cursor: 'pointer' }} />
+          {/* <SearchIcon onClick={navigateInfo} sx={{ cursor: 'pointer' }} />
           <IconButton sx={{ p: "10px" }} aria-label="menu"></IconButton>
           <InputBase
             sx={{ ml: 1, flex: 1 }}
             placeholder="Search for a client"
             inputProps={{ "aria-label": "search google maps" }}
 
-          />
-          <IconButton
+          /> */}
+          <SearchBox/>
+          {/* <IconButton
             type="button"
             sx={{ p: "10px" }}
             aria-label="search"
-          ></IconButton>
+          ></IconButton> */}
         </Paper>
       </Grid>
     </Grid>

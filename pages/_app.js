@@ -1,19 +1,19 @@
 // import Layout from "@/layout";
 import dynamic from 'next/dynamic';
 import '../index.css'
-import store from "./store";
-import { Provider } from "react-redux";
+import { Provider } from 'react-redux';
+import store from '@/redux/store'
 
 const Layout = dynamic(() => import("../layout/index.js"), { ssr: false });
 
-function App({ Component, pageProps }) {
-  return (
+function App({ Component, pageProps}) {
+  return ( 
     <Provider store={store}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </Provider >
-
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+    </Provider>
+    
   );
 }
 
