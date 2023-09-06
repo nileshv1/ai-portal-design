@@ -26,6 +26,7 @@ const Search = () => {
   const searchList = useSelector((state) => state.api.searchList);
   const [value, setValue] = React.useState(null);
   const selectedUser = useSelector((state) => state.api.selectedUser);
+  console.log(selectedUser,"selectedUser")
   const [customValue, setCustomValue] = React.useState("");
   const [error, setError] = useState("");
 

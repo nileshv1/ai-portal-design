@@ -10,9 +10,27 @@ import { nn_logo, img1, img2, img3, img4 } from "@/public/images";
 import { useEffect, useState } from "react";
 // import styles from "../../styles/style.module.css";
 import { useRouter } from "next/router";
+import { makeStyles } from '@mui/styles';
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment/moment";
+import Link from 'next/link';
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        border: 'none', // Remove the outline when the TextField is focused
+        // outline: 'none'
+      },
+    },
+  },
+}));
 
 const Info = () => {
-
+    const selectedUser = useSelector((state) => state.api.selectedUser);
+  console.log(selectedUser,"selectedUser")
+    const classes = useStyles();
     const themeinfo = createTheme({
         typography: {
             subtitle2: {
@@ -22,6 +40,10 @@ const Info = () => {
             h3: {
                 fontSize: 24,
                 fontWeight: "bold"
+            },
+            h4:{
+                fontSize: 16,
+                fontWeight: 'bold',
             },
             h5: {
                 fontSize: 16,
@@ -33,16 +55,12 @@ const Info = () => {
 
         },
     });
-    const imageUrls = [img1, img2, img3, img4];
+    moment.updateLocale('en', {
+        relativeTime: {
+          past: '%s old',
+        },
+      });   
   const { push } = useRouter();
-
-  const [randomImageUrl, setRandomImageUrl] = useState([]);
-
-  const getRandomImage = () => {
-    const randomIndex = Math.floor(Math.random() * imageUrls.length);
-    setRandomImageUrl(imageUrls[randomIndex]);
-  };
-
   const navigateToHome = () => {
     push("/home");
   };
@@ -50,14 +68,12 @@ const Info = () => {
  const handleSend = () => {
        setQue(!que);
  }
-  useEffect(() => {
-    getRandomImage();
-  }, [randomImageUrl]);
+  
     return (
         <ThemeProvider theme={themeinfo}>
             <Grid >
             <BackgroundImage props={true} />
-            <Box sx={{ mx: "auto", width: { xs: "90%", md: "100%" } ,overflow: 'auto' , height:'100vh'}} border="2px solid green" 
+            <Box sx={{ mx: "auto", width: { xs: "90%", md: "100%" } ,overflow: 'auto' , height:'100vh'}} border="0px solid green" 
              style={{position: "absolute",
                 left: 0,
                 right: 0,
@@ -71,21 +87,24 @@ const Info = () => {
                     {/* First Block */}
                     <Grid container item sm={4} display="flex" justifyContent="center" sx={{ pr: { xs: 0, md: 4 } }} border="0px solid orange" >
                         <Grid container item md={10} sx={{ borderRadius: '24px', pt: 2, pl: 2, pb: 1, pr: 4 }} className={stylesInfo.whiteBg} border="0px solid blue">
-                            <Box sx={{ display: "flex", flexDirection: "column" }}>
-                                <Box display="flex" alignItems="center">
+                            <Box sx={{ display: "flex", flexDirection: "column",width:"100%" }} border="0px solid blue">
+                                <Box display="flex" alignItems="center" sx={{width:"100%"}} border="0px solid pink">
                                     <Image
                                         src="/images/person.svg"
                                         width={40}
                                         height={40}
                                         alt="Picture of the Person"
                                     />
-                                    <Typography variant="h3">James Bond</Typography>
+                                    <Typography variant="h3">{selectedUser.FirstName + " " + selectedUser.Name}</Typography>
                                 </Box>
                                 <Box sx={{ pl: 1 }}>
-                                    <Typography variant="h5">7 Jan 1986, 36 years old</Typography>
-                                    <Typography variant="h5">0479/58 36 59</Typography>
-                                    <Typography variant="h5" sx={{ pb: 2 }}>james@bont.com </Typography>
-                                    <Typography variant="h5">Kerkstraat 9, Leuven </Typography>
+                                    <Typography variant="h5" component="span">{moment(selectedUser.BirthDate).format("DD MMM YYYY")+ ", " }</Typography>
+                                    <Typography variant="h5" component="span" sx={{fontWeight: 'bold'}}>{moment(selectedUser.BirthDate).fromNow() }</Typography>
+                                    <Typography variant="h5">{selectedUser.MobilePhoneNumber}</Typography>
+                                    <Typography variant="h5" sx={{ pb: 2, width:"100%" }} border="0px solid orange">
+                                        <Link href="/" >{selectedUser.EmailAddress}</Link> 
+                                        </Typography>                          
+                                    <Typography variant="h5">{selectedUser.FullAddress}</Typography>
 
                                 </Box>
                             </Box>
@@ -195,7 +214,7 @@ const Info = () => {
                         </Grid>
 
                         {/* //type your question */}
-                        <Grid container item md={11} sx={{ borderRadius: '24px',mb:2, pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} className={stylesInfo.whiteBg} border="2px solid blue">
+                        <Grid container item md={11} sx={{ borderRadius: '24px',mb:2, pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} className={stylesInfo.whiteBg} border="0px solid blue">
                             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: "column", width: { xs: "100%" } }} border="0px solid red">
                                <Box sx={{ display: "flex", flexDirection: "row" }}>
                                    <TextField
@@ -204,6 +223,7 @@ const Info = () => {
                                         fullWidth
                                         rows={1}
                                         sx={{ outline:"none", border: 'none'}}
+                                        className={classes.root}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start"><Image
                                             src="/images/search.svg"
