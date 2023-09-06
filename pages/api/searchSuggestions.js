@@ -2,6 +2,8 @@
 
 export default async function handler(req, res) {
   const { query } = req.query;
+  const {method, body } = req;
+  // console.log(body,"body")
 
   const apiEndpoint = 'https://documentssearch-dt.search.windows.net/indexes/searchrelationindex/docs';
   const apiVersion = '2023-07-01-Preview';
@@ -11,44 +13,21 @@ export default async function handler(req, res) {
   // Your search query
 const searchQuery = 'Alexis*';
 
-  const requestUrl = `${apiEndpoint}?api-version=${apiVersion}&search=${query}`;
+  const requestUrl = `${apiEndpoint}?api-version=${apiVersion}&search=${body}`;
 
   const headers = {
     'Content-Type': 'application/json',
     'api-key': apiKey,
     'Authorization': authToken,
   };
-
-  try {
-    const response = await fetch(requestUrl, {
+  let check = await fetch(
+    requestUrl,
+    {
       method: 'GET',
-      headers: headers,
-    });
-
-    if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`);
+      headers: headers
     }
-
-    const responseBody = await response.text(); // Read the response as text
-
-    // Check if the response is empty
-    if (!responseBody) {
-      throw new Error('Empty response');
-    }
-
-    let data;
-    try {
-      data = JSON.parse(responseBody); // Try parsing JSON
-    } catch (parseError) {
-      throw new Error(`Failed to parse JSON: ${parseError.message}`);
-    }
-
-    // Assuming your API response contains suggestions in a 'suggestions' property
-    const suggestions = data || [];
-
-    res.status(200).json({ suggestions });
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+  )
+    .then((response) => response.json())
+    .catch((error) => error)
+  res.status(200).json(check)
 }

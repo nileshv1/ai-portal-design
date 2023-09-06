@@ -87,8 +87,8 @@ const Info = () => {
                     {/* First Block */}
                     <Grid container item sm={4} display="flex" justifyContent="center" sx={{ pr: { xs: 0, md: 4 } }} border="0px solid orange" >
                         <Grid container item md={10} sx={{ borderRadius: '24px', pt: 2, pl: 2, pb: 1, pr: 4 }} className={stylesInfo.whiteBg} border="0px solid blue">
-                            <Box sx={{ display: "flex", flexDirection: "column" }}>
-                                <Box display="flex" alignItems="center">
+                            <Box sx={{ display: "flex", flexDirection: "column",width:"100%" }} border="0px solid blue">
+                                <Box display="flex" alignItems="center" sx={{width:"100%"}} border="0px solid pink">
                                     <Image
                                         src="/images/person.svg"
                                         width={40}
@@ -101,9 +101,9 @@ const Info = () => {
                                     <Typography variant="h5" component="span">{moment(selectedUser.BirthDate).format("DD MMM YYYY")+ ", " }</Typography>
                                     <Typography variant="h5" component="span" sx={{fontWeight: 'bold'}}>{moment(selectedUser.BirthDate).fromNow() }</Typography>
                                     <Typography variant="h5">{selectedUser.MobilePhoneNumber}</Typography>
-                                    <Link href="/" >
-                                    <Typography variant="h5" sx={{ pb: 2 }}>{selectedUser.EmailAddress} </Typography>
-                                    </Link>
+                                    <Typography variant="h5" sx={{ pb: 2, width:"100%" }} border="0px solid orange">
+                                        <Link href="/" >{selectedUser.EmailAddress}</Link> 
+                                        </Typography>                          
                                     <Typography variant="h5">{selectedUser.FullAddress}</Typography>
 
                                 </Box>
