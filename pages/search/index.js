@@ -1,81 +1,136 @@
-import { Grid, IconButton, InputBase, Paper } from "@mui/material";
-import React from "react";
+import {
+  Autocomplete,
+  Box,
+  Grid,
+  IconButton,
+  InputBase,
+  Paper,
+  TextField,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
 import styles from "../../styles/style.module.css";
 import BackgroundImage from "@/components/background-image";
-import { makeStyles } from "@mui/styles";
-import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
-import SearchBox from "@/components/background-image/SearchBox";
-import { useSelector, useDispatch } from 'react-redux'
-
-const useStyles = makeStyles((theme) => ({
-  customClass: {
-    width: 400,
-    height: 70,
-    "@media only screen and (max-width: 768px)": {
-      width: 300,
-      height: 50,
-    },
-    "@media only screen and (max-width: 600px)": {
-      width: 200,
-      height: 50,
-    },
-  },
-}));
-
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSearchResults, setUser } from "@/redux/slice/apiSearchSlice";
+import moment from "moment/moment";
+import SearchIcon from "@mui/icons-material/Search";
 
 const Search = () => {
-
   const { push } = useRouter();
-
-  const navigateInfo = () => {
-    push('/info')
-  }
+  const [query, setQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
   const dispatch = useDispatch();
-  const onKeyPress = (e) => {
-    if (e.key == 'Enter') { push('/info'); e.preventDefault(); dispatch(getUsersData()); }
-    ;
+  const searchList = useSelector((state) => state.api.searchList);
+  const [value, setValue] = React.useState(null);
+  const selectedUser = useSelector((state) => state.api.selectedUser);
+  console.log(selectedUser,"selectedUser")
+  const [customValue, setCustomValue] = React.useState("");
+
+  const handleInputChange = (e) => {
+    let newQuery;
+    if (e == undefined) {
+      newQuery = "*";
+    } else {
+      newQuery = e.target.value;
+    }
+    setQuery(newQuery);
+    console.log(newQuery,"query")
+    dispatch(fetchSearchResults(newQuery))
+      .unwrap()
+      .then((data) => {
+        console.log("Data--- after API", data);
+        const result = data.value.map(
+          ({ FirstName, Name, BirthDate, FullAddress }) => ({
+            FirstName,
+            Name,
+            BirthDate,
+            FullAddress,
+          })
+        );
+        setSuggestions(result);
+      })
+      .catch((error) => {
+        console.log("search api error", error);
+      });
   };
 
-  const classes = useStyles();
+  const onKeyPress = (e) => {
+    if (e.key == "Enter") {
+      push("/info");
+      e.preventDefault();
+    }
+    dispatch(setUser(value));
+  };
+
+  useEffect(() => {
+    handleInputChange();
+  }, []);
+
+  const navigateInfo = () => {
+    push("/info");
+    dispatch(setUser(value));
+  };
 
   return (
     <Grid>
       <BackgroundImage props={true} />
       <Grid item>
-        <Paper
-          classes={{ root: classes.customClass }}
-          component="form"
+        <Autocomplete
           sx={{
-            p: "2px 4px",
-            display: "flex",
-            alignItems: "center",
-            position: "absolute",
-            left: 0,
-            bottom: 325,
-            top: 0,
-            margin: "auto",
-            right: 0,
-            color: 'black',
-            borderRadius: 5
-          }}
-          onKeyPress={onKeyPress}
-        >
-          {/* <SearchIcon onClick={navigateInfo} sx={{ cursor: 'pointer' }} />
-          <IconButton sx={{ p: "10px" }} aria-label="menu"></IconButton>
-          <InputBase
-            sx={{ ml: 1, flex: 1 }}
-            placeholder="Search for a client"
-            inputProps={{ "aria-label": "search google maps" }}
+            display: "inline-block",
+            "& input": {
+              bgcolor: "#fff",
+            },
+            "& label": {
+              fontSize: { xs: 17, md: 20 },
 
-          /> */}
-          <SearchBox/>
-          {/* <IconButton
-            type="button"
-            sx={{ p: "10px" }}
-            aria-label="search"
-          ></IconButton> */}
-        </Paper>
+              fontWeight: 400,
+              color: "black",
+            },
+            "& fieldset": {
+              border: "none",
+            },
+          }}
+          id="search-countries"
+          options={searchList}
+          className={styles.header_img}
+          onInputChange={handleInputChange}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+            setCustomValue(newValue.FirstName + newValue.FullAddress);
+          }}
+          getOptionLabel={(option) => option.FirstName}
+          renderOption={(props, option) => (
+            <Box
+              component="li"
+              sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+              {...props}
+            >
+              <b>
+                {option.FirstName !== null ? option.FirstName : ""}{" "}
+                {option.Name !== null ? option.Name : ""}
+              </b>
+              <br></br>
+              {option.BirthDate !== null
+                ? moment(option.BirthDate).format("DD MMM yyyy")
+                : null}{" "}
+              - {option.FullAddress}
+            </Box>
+          )}
+          renderInput={(params) => (
+            <span>
+              <SearchIcon onClick={navigateInfo} sx={{ cursor: "pointer" }} />
+              <TextField
+                {...params}
+                value={customValue}
+                label="Search for a client"
+                variant="outlined"
+                onKeyPress={onKeyPress}
+              />
+            </span>
+          )}
+        />
       </Grid>
     </Grid>
   );

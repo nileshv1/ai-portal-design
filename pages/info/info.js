@@ -11,6 +11,10 @@ import { useEffect, useState } from "react";
 // import styles from "../../styles/style.module.css";
 import { useRouter } from "next/router";
 import { makeStyles } from '@mui/styles';
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment/moment";
+import Link from 'next/link';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Info = () => {
+    const selectedUser = useSelector((state) => state.api.selectedUser);
+  console.log(selectedUser,"selectedUser")
     const classes = useStyles();
     const themeinfo = createTheme({
         typography: {
@@ -35,6 +41,10 @@ const Info = () => {
                 fontSize: 24,
                 fontWeight: "bold"
             },
+            h4:{
+                fontSize: 16,
+                fontWeight: 'bold',
+            },
             h5: {
                 fontSize: 16,
                 // fontWeight: "bold"
@@ -45,16 +55,12 @@ const Info = () => {
 
         },
     });
-    const imageUrls = [img1, img2, img3, img4];
+    moment.updateLocale('en', {
+        relativeTime: {
+          past: '%s old',
+        },
+      });   
   const { push } = useRouter();
-
-  const [randomImageUrl, setRandomImageUrl] = useState([]);
-
-  const getRandomImage = () => {
-    const randomIndex = Math.floor(Math.random() * imageUrls.length);
-    setRandomImageUrl(imageUrls[randomIndex]);
-  };
-
   const navigateToHome = () => {
     push("/home");
   };
@@ -62,9 +68,7 @@ const Info = () => {
  const handleSend = () => {
        setQue(!que);
  }
-  useEffect(() => {
-    getRandomImage();
-  }, [randomImageUrl]);
+  
     return (
         <ThemeProvider theme={themeinfo}>
             <Grid >
@@ -91,13 +95,16 @@ const Info = () => {
                                         height={40}
                                         alt="Picture of the Person"
                                     />
-                                    <Typography variant="h3">James Bond</Typography>
+                                    <Typography variant="h3">{selectedUser.FirstName + " " + selectedUser.Name}</Typography>
                                 </Box>
                                 <Box sx={{ pl: 1 }}>
-                                    <Typography variant="h5">7 Jan 1986, 36 years old</Typography>
-                                    <Typography variant="h5">0479/58 36 59</Typography>
-                                    <Typography variant="h5" sx={{ pb: 2 }}>james@bont.com </Typography>
-                                    <Typography variant="h5">Kerkstraat 9, Leuven </Typography>
+                                    <Typography variant="h5" component="span">{moment(selectedUser.BirthDate).format("DD MMM YYYY")+ ", " }</Typography>
+                                    <Typography variant="h5" component="span" sx={{fontWeight: 'bold'}}>{moment(selectedUser.BirthDate).fromNow() }</Typography>
+                                    <Typography variant="h5">{selectedUser.MobilePhoneNumber}</Typography>
+                                    <Link href="/" >
+                                    <Typography variant="h5" sx={{ pb: 2 }}>{selectedUser.EmailAddress} </Typography>
+                                    </Link>
+                                    <Typography variant="h5">{selectedUser.FullAddress}</Typography>
 
                                 </Box>
                             </Box>
