@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSearchResults, setUser } from "@/redux/slice/apiSearchSlice";
 import moment from "moment/moment";
 import SearchIcon from "@mui/icons-material/Search";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Search = () => {
   const { push } = useRouter();
@@ -25,6 +27,7 @@ const Search = () => {
   const [value, setValue] = React.useState(null);
   const selectedUser = useSelector((state) => state.api.selectedUser);
   const [customValue, setCustomValue] = React.useState("");
+  const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
     let newQuery;
@@ -32,42 +35,50 @@ const Search = () => {
       newQuery = "*";
     } else {
       newQuery = e.target.value;
+      if (newQuery !== undefined && newQuery.length < 4) {
+        setError("Please enter minimun 4 character");
+      } else {
+        setError("");
+      }
     }
     setQuery(newQuery);
-    dispatch(fetchSearchResults(newQuery))
-      .unwrap()
-      .then((data) => {
-        console.log("Data---", data);
-        const result = data.value.map(
-          ({ FirstName, Name, BirthDate, FullAddress }) => ({
-            FirstName,
-            Name,
-            BirthDate,
-            FullAddress,
-          })
-        );
-        setSuggestions(result);
-      })
-      .catch((error) => {
-        console.log("search api error", error);
-      });
+
+    dispatch(fetchSearchResults(newQuery));
   };
 
   const onKeyPress = (e) => {
     if (e.key == "Enter") {
-      push("/info");
-      e.preventDefault();
+      if (value !== null) {
+        push("/info");
+        dispatch(setUser(value));
+        e.preventDefault();
+      } else {
+        toast.error("Please select atleast one name", {
+          position: "top-right",
+          autoClose: 5000,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+      }
     }
-    dispatch(setUser(value));
   };
 
   useEffect(() => {
-    handleInputChange();
+    setInterval(handleInputChange(), 30000);
   }, []);
 
   const navigateInfo = () => {
-    push("/info");
-    dispatch(setUser(value));
+    if (value !== null) {
+      push("/info");
+      dispatch(setUser(value));
+    } else {
+      toast.error("Please select atleast one name", {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
   };
 
   return (
@@ -89,6 +100,11 @@ const Search = () => {
             "& fieldset": {
               border: "none",
             },
+            "& p": {
+              marginTop: { xs: 3, md: 10 },
+              fontWeight: 600,
+              fontSize: { xs: 12, md: 16 },
+            },
           }}
           id="search-countries"
           options={searchList}
@@ -96,9 +112,16 @@ const Search = () => {
           onInputChange={handleInputChange}
           onChange={(event, newValue) => {
             setValue(newValue);
-            setCustomValue(newValue.FirstName + newValue.FullAddress);
           }}
-          getOptionLabel={(option) => option.FirstName}
+          getOptionLabel={(option) =>
+            option.FirstName +
+            " " +
+            option.Name +
+            " " +
+            moment(option.BirthDate).format("DD MMM yyyy") +
+            "-" +
+            option.FullAddress
+          }
           renderOption={(props, option) => (
             <Box
               component="li"
@@ -117,18 +140,32 @@ const Search = () => {
             </Box>
           )}
           renderInput={(params) => (
-            <span>
-              <SearchIcon onClick={navigateInfo} sx={{ cursor: "pointer" }} />
+            <span sx={{ display: "flex" }}>
+              {/* <SearchIcon className={styles.cursor} /> */}
               <TextField
                 {...params}
-                value={customValue}
-                label="Search for a client"
                 variant="outlined"
                 onKeyPress={onKeyPress}
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <>
+                      <SearchIcon
+                        style={{ marginRight: "8px", cursor: "pointer" }}
+                        onClick={navigateInfo}
+                      />
+                      {params.InputProps.startAdornment}
+                    </>
+                  ),
+                }}
+                label="Search for a client"
+                error={!!error}
+                helperText={error}
               />
             </span>
           )}
         />
+        <ToastContainer />
       </Grid>
     </Grid>
   );
