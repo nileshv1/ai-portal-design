@@ -13,7 +13,6 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.7",
     "@mui/material": "^5.14.7",
-    "@mui/styles": "^5.14.7",
     "@reduxjs/toolkit": "^1.9.5",
     "moment": "^2.29.4",
     "next": "13.4.19",
