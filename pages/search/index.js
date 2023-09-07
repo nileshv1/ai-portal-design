@@ -21,12 +21,9 @@ import "react-toastify/dist/ReactToastify.css";
 const Search = () => {
   const { push } = useRouter();
   const [query, setQuery] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
   const dispatch = useDispatch();
   let searchList = useSelector((state) => state.api.searchList);
   const [value, setValue] = React.useState(null);
-  const selectedUser = useSelector((state) => state.api.selectedUser);
-  console.log(selectedUser, "selectedUser");
   const [customValue, setCustomValue] = React.useState("");
   const [error, setError] = useState("");
 
