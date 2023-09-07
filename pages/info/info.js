@@ -97,15 +97,16 @@ const Info = () => {
                                     />
                                     <Typography variant="h3">{selectedUser.FirstName + " " + selectedUser.Name}</Typography>
                                 </Box>
-                                <Box sx={{ pl: 1 }}>
+                                <Box sx={{ pl: 1 , width:"100%"}}  border="0px solid orange">
                                     <Typography variant="h5" component="span">{moment(selectedUser.BirthDate).format("DD MMM YYYY")+ ", " }</Typography>
                                     <Typography variant="h5" component="span" sx={{fontWeight: 'bold'}}>{moment(selectedUser.BirthDate).fromNow() }</Typography>
                                     <Typography variant="h5">{selectedUser.MobilePhoneNumber}</Typography>
                                     <Typography variant="h5" sx={{ pb: 2, width:"100%" }} border="0px solid orange">
-                                        <Link href="/" >{selectedUser.EmailAddress}</Link> 
-                                        </Typography>                          
+                                        <Link href="/" style={{ display: "inline-block", maxWidth: "100%", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                                            {selectedUser.EmailAddress}
+                                        </Link> 
+                                    </Typography>                                                  
                                     <Typography variant="h5">{selectedUser.FullAddress}</Typography>
-
                                 </Box>
                             </Box>
                         </Grid>
