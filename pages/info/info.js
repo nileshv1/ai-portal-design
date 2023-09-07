@@ -10,27 +10,14 @@ import { nn_logo, img1, img2, img3, img4 } from "@/public/images";
 import { useEffect, useState } from "react";
 // import styles from "../../styles/style.module.css";
 import { useRouter } from "next/router";
-import { makeStyles } from '@mui/styles';
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment/moment";
 import Link from 'next/link';
 
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& .MuiOutlinedInput-root': {
-      '&.Mui-focused fieldset': {
-        border: 'none', // Remove the outline when the TextField is focused
-        // outline: 'none'
-      },
-    },
-  },
-}));
-
 const Info = () => {
     const selectedUser = useSelector((state) => state.api.selectedUser);
   console.log(selectedUser,"selectedUser")
-    const classes = useStyles();
     const themeinfo = createTheme({
         typography: {
             subtitle2: {
@@ -224,7 +211,6 @@ const Info = () => {
                                         fullWidth
                                         rows={1}
                                         sx={{ outline:"none", border: 'none'}}
-                                        className={classes.root}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start"><Image
                                             src="/images/search.svg"
