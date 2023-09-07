@@ -21,12 +21,9 @@ import "react-toastify/dist/ReactToastify.css";
 const Search = () => {
   const { push } = useRouter();
   const [query, setQuery] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
   const dispatch = useDispatch();
-  const searchList = useSelector((state) => state.api.searchList);
+  let searchList = useSelector((state) => state.api.searchList);
   const [value, setValue] = React.useState(null);
-  const selectedUser = useSelector((state) => state.api.selectedUser);
-  console.log(selectedUser,"selectedUser")
   const [customValue, setCustomValue] = React.useState("");
   const [error, setError] = useState("");
 
@@ -40,11 +37,9 @@ const Search = () => {
         setError("Please enter minimun 4 character");
       } else {
         setError("");
+        dispatch(fetchSearchResults(newQuery));
       }
     }
-    setQuery(newQuery);
-
-    dispatch(fetchSearchResults(newQuery));
   };
 
   const onKeyPress = (e) => {
@@ -65,7 +60,7 @@ const Search = () => {
   };
 
   useEffect(() => {
-    setInterval(handleInputChange(), 30000);
+    searchList = [];
   }, []);
 
   const navigateInfo = () => {
@@ -102,7 +97,7 @@ const Search = () => {
             },
           }}
           id="search-countries"
-          options={searchList}
+          options={searchList ? searchList : []}
           className={styles.header_img}
           onInputChange={handleInputChange}
           onChange={(event, newValue) => {
