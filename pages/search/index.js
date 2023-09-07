@@ -26,6 +26,7 @@ const Search = () => {
   const [value, setValue] = React.useState(null);
   const [customValue, setCustomValue] = React.useState("");
   const [error, setError] = useState("");
+  const [inputValue, setInputValue] = React.useState("");
 
   const handleInputChange = (e) => {
     let newQuery;
@@ -33,6 +34,7 @@ const Search = () => {
       newQuery = "*";
     } else {
       newQuery = e.target.value;
+      setInputValue(newQuery);
       if (newQuery !== undefined && newQuery.length < 4) {
         setError("Please enter minimun 4 character");
       } else {
@@ -58,10 +60,6 @@ const Search = () => {
       }
     }
   };
-
-  useEffect(() => {
-    searchList = [];
-  }, []);
 
   const navigateInfo = () => {
     if (value !== null) {
@@ -97,7 +95,7 @@ const Search = () => {
             },
           }}
           id="search-countries"
-          options={searchList ? searchList : []}
+          options={searchList && inputValue.length > 3 ? searchList : []}
           className={styles.header_img}
           onInputChange={handleInputChange}
           onChange={(event, newValue) => {
