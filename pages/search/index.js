@@ -91,12 +91,6 @@ const Search = () => {
             "& input": {
               bgcolor: "#fff",
             },
-            "& label": {
-              fontSize: { xs: 17, md: 20 },
-
-              fontWeight: 400,
-              color: "black",
-            },
             "& fieldset": {
               border: "none",
             },
@@ -144,7 +138,7 @@ const Search = () => {
               {/* <SearchIcon className={styles.cursor} /> */}
               <TextField
                 {...params}
-                variant="outlined"
+                placeholder="Search for a client"
                 onKeyPress={onKeyPress}
                 InputProps={{
                   ...params.InputProps,
@@ -158,7 +152,6 @@ const Search = () => {
                     </>
                   ),
                 }}
-                label="Search for a client"
                 error={!!error}
                 helperText={error}
               />
