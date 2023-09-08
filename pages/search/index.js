@@ -59,10 +59,11 @@ const Search = () => {
   };
 
   const handleChange = (event, newValue) => {
+    debugger
     setValue(newValue);
-    if (value !== null) {
+    if (newValue !== null) {
       push("/info");
-      dispatch(setUser(value));
+      dispatch(setUser(newValue));
     } else {
       toast.error("Please select atleast one name", {
         position: "top-right",
