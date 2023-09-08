@@ -59,7 +59,6 @@ const Search = () => {
   };
 
   const handleChange = (event, newValue) => {
-    debugger
     setValue(newValue);
     if (newValue !== null) {
       push("/info");
