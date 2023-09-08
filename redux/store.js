@@ -1,12 +1,14 @@
-// store.js
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import searchApiReducer from './slice/apiSearchSlice';
+import graphqlApiReducer from './slice/graphqlSlice';
 
-import { configureStore } from '@reduxjs/toolkit';
-import apiReducer from './slice/apiSearchSlice'; // Import your API slice
+const rootReducer = combineReducers({
+  api: searchApiReducer,
+  graphqlApi: graphqlApiReducer,
+});
 
 const store = configureStore({
-  reducer: {
-    api: apiReducer,
-  },
+  reducer: rootReducer,
 });
 
 export default store;

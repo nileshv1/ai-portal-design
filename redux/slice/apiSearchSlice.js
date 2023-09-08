@@ -1,5 +1,3 @@
-// apiSlice.js
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Define an initial state

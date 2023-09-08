@@ -13,6 +13,9 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment/moment";
 import Link from 'next/link';
+import { ApolloProvider } from '@apollo/client';
+import client from '@/graphql/apolloClient';
+import { GET_DATA } from '@/graphql/queries';
 
 
 const Info = () => {
@@ -55,8 +58,13 @@ const Info = () => {
  const handleSend = () => {
        setQue(!que);
  }
+
+  // Fetch data using Apollo Client
+const { loading, error, data: graphqlData } = useQuery(GET_DATA);
+
   
     return (
+        <ApolloProvider client={client}>
         <ThemeProvider theme={themeinfo}>
             <Grid >
             <BackgroundImage props={true} />
@@ -295,6 +303,7 @@ const Info = () => {
             </Box>
             </Grid>
         </ThemeProvider>
+        </ApolloProvider>
     )
 }
 
