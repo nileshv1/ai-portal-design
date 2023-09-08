@@ -95,7 +95,7 @@ const Search = () => {
             },
           }}
           id="search-countries"
-          options={searchList && inputValue.length > 3 ? searchList : []}
+          options={searchList && inputValue && inputValue.length > 3 ? searchList : []}
           className={styles.header_img}
           onInputChange={handleInputChange}
           onChange={(event, newValue) => {
