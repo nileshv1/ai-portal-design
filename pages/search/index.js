@@ -44,24 +44,22 @@ const Search = () => {
     }
   };
 
-  const onKeyPress = (e) => {
-    if (e.key == "Enter") {
-      if (value !== null) {
-        push("/info");
-        dispatch(setUser(value));
-        e.preventDefault();
-      } else {
-        toast.error("Please select atleast one name", {
-          position: "top-right",
-          autoClose: 5000,
-          closeOnClick: true,
-          pauseOnHover: true,
-        });
-      }
+  const navigateInfo = () => {
+    if (value !== null) {
+      push("/info");
+      dispatch(setUser(value));
+    } else {
+      toast.error("Please select atleast one name", {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
     }
   };
 
-  const navigateInfo = () => {
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
     if (value !== null) {
       push("/info");
       dispatch(setUser(value));
@@ -95,12 +93,12 @@ const Search = () => {
             },
           }}
           id="search-countries"
-          options={searchList && inputValue && inputValue.length > 3 ? searchList : []}
+          options={
+            searchList && inputValue && inputValue.length > 3 ? searchList : []
+          }
           className={styles.header_img}
           onInputChange={handleInputChange}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
+          onChange={handleChange}
           getOptionLabel={(option) =>
             option.FirstName +
             " " +
@@ -133,7 +131,6 @@ const Search = () => {
               <TextField
                 {...params}
                 placeholder="Search for a client"
-                onKeyPress={onKeyPress}
                 InputProps={{
                   ...params.InputProps,
                   endAdornment: (
