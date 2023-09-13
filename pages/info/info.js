@@ -17,7 +17,46 @@ import Link from 'next/link';
 
 const Info = () => {
     const selectedUser = useSelector((state) => state.api.selectedUser);
-  console.log(selectedUser,"selectedUser")
+    const graphData = useSelector((state) => state.graphapi.graphResponse);
+    console.log(graphData,"graphData")
+    // Create an object to store the unique policy information
+const uniquePolicies = {};
+
+// Iterate through the JSON data
+graphData.forEach((item) => {
+    const policyNumber = item.policy.policyNumber;
+    const policyVersionNumber = parseInt(item.policy.policyVersionNumber);
+    const policyType = item.policy.policyType;
+
+ 
+
+    // Check if the policyType exists in the uniquePolicies object
+    if (!uniquePolicies.hasOwnProperty(policyType)) {
+        // If it doesn't exist, add the entire object
+        uniquePolicies[policyType] = item;
+    } else {
+        // If it exists, compare the policyVersionNumber and update if greater
+        if (policyVersionNumber > parseInt(uniquePolicies[policyType].policy.policyVersionNumber)) {
+            uniquePolicies[policyType] = item;
+        }
+    }
+});
+
+   // Convert the uniquePolicies object into an array of objects
+   const graphResponse = Object.values(uniquePolicies);
+    console.log(graphResponse, "result filter data");
+    const result = graphData[graphData?.length-1]
+    // console.log(resultAPI, "resultAPI")
+    // const result = JSON.parse(localStorage.getItem("result"))
+    console.log(result, "result")
+    const policyData = result?.policy
+    const partyData = result?.party[result.party.length - 1]
+    const vehicleData = result?.vehicle[0]
+    const buildingeData = result?.building[0]
+    const coverageBuilding = result?.building[0]?.coverage.map(coverage => coverage.coverageType)
+    const coverageCar = result?.vehicle[0]?.coverage.map(coverage => coverage.coverageType)
+    const policyType = policyData?.policyType =="Car"?"Car":"Home"
+
     const themeinfo = createTheme({
         typography: {
             subtitle2: {
@@ -73,7 +112,7 @@ const Info = () => {
                 <Grid container spacing={2} sx={{ mb: 2 }} border="0px solid pink" mt={4}>
                     {/* First Block */}
                     <Grid container item sm={4} display="flex" justifyContent="center" sx={{ pr: { xs: 0, md: 4 } }} border="0px solid orange" >
-                        <Grid container item md={10} sx={{ borderRadius: '24px', pt: 2, pl: 2, pb: 1, pr: 4 }} className={stylesInfo.whiteBg} border="0px solid blue">
+                        <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2, pl: 2, pb: 1, pr: 4 }} className={stylesInfo.whiteBg} border="0px solid blue">
                             <Box sx={{ display: "flex", flexDirection: "column",width:"100%" }} border="0px solid blue">
                                 <Box display="flex" alignItems="center" sx={{width:"100%"}} border="0px solid pink">
                                     <Image
@@ -98,8 +137,13 @@ const Info = () => {
                             </Box>
                         </Grid>
                     </Grid>
-
-                    {/* Second Block */}
+                   
+                   {graphResponse.map((policy)=>{
+                        console.log(policy,"policy")
+                        return (
+                        <>
+                        {/* Second Block */}
+                    {policy?.building?.length>0 ?
                     <Grid container item sm={4} display="flex" justifyContent="center" border="0px solid orange" >
                         <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} className={stylesInfo.whiteBg} border="0px solid blue">
                             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, width: { xs: "100%" } }} border="0px solid red">
@@ -113,27 +157,37 @@ const Info = () => {
 
                                         />
                                         <Grid sx={{ ml: 2 }}>
-                                            <Typography variant="h3">H&F P2</Typography>
-                                            <Typography variant="h5">30001256</Typography>
+                                            <Typography variant="h3">{policyData?.policyType =="Car"?"Home":"Home"}</Typography>
+                                            <Typography variant="h5">{policyData?.policyNumber}</Typography>
                                         </Grid>
                                     </Box>
                                     <Typography variant="h5" sx={{ pb: 2, pl: 2 }}>Kerkstraat 9, Leuven</Typography>
-                                    <Typography variant="h5" sx={{ pl: 2, mb: { xs: 2, md: 0 } }}>1/5/2023 – 1/5/2024</Typography>
+                                    <Typography variant="h5" sx={{ pl: 2, mb: { xs: 2, md: 0 } }}>{policyData?.policyStartDate} – {policyData?.policyEndDate}</Typography>
                                 </Box>
 
                                 <Box sx={{ display: "flex", flexDirection: "column", pt: 1 }} border="0px solid green">
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[600] }}>{"Policy Holder".toLowerCase()}</Button>
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[900] }}>Content</Button>
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[900] }}>Leg Assist</Button>
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[900] }}>family</Button>
+                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[600] }}>{partyData?.partyRole=="Main driver"?"Policy Holder":"Policy Holder"}</Button>
+                                    {/* <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Content</Button>
+                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Leg Assist</Button>
+                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>family</Button> */}
+                                    {/* {coverageCar?.map((cov, index)=>{
+                                        {console.log(cov,"cov")}
+                                      <Button key={index} variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>{cov}</Button> 
+                                    //   <h1>hia</h1>
+                                    })} */}
+                                    {coverageBuilding?
+                                    coverageBuilding.map((cov, index) => (  <Button key={index} variant="contained" sx={{mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900],  width: "100%", }}>{cov}</Button>))
+                                :<><Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Content</Button>
+                                <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Leg Assist</Button>
+                                <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>family</Button></>}
                                 </Box>
                             </Box>
                         </Grid>
-                    </Grid>
-
-
+                    </Grid>:<></>}
+                    
                     {/* third Block */}
-                    <Grid container item sm={4} display="flex" justifyContent="center" border="0px solid orange" >
+                    {policy?.vehicle?.length>0 ?
+                   <Grid container item sm={4} display="flex" justifyContent="center" border="0px solid orange" >
                         <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} className={stylesInfo.whiteBg} border="0px solid blue">
                             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, width: { xs: "100%" } }} border="0px solid red">
                                 <Box border="0px solid red">
@@ -143,27 +197,34 @@ const Info = () => {
                                             width={60}
                                             height={60}
                                             alt="Picture of the Car"
-
                                         />
                                         <Box sx={{ ml: 2 }}>
-                                            <Typography variant="h3">Car P3</Typography>
-                                            <Typography variant="h5">30001966</Typography>
+                                            <Typography variant="h3">{policy?.policy.policyType}</Typography>
+                                            <Typography variant="h5">{policy?.policy.policyNumber}</Typography>
                                         </Box>
                                     </Box>
-                                    <Typography variant="h5" sx={{ pl: 2 }}>VW Golf</Typography>
-                                    <Typography variant="h5" sx={{ pl: 2 }}>1-ABC-123</Typography>
-                                    <Typography variant="h5" sx={{ pl: 2, mb: { xs: 2, md: 0 } }}>1/5/2023 – 1/5/2024</Typography>
+                                    <Typography variant="h5" sx={{ pl: 2 }}>{policy?.vehicle?.make} {policy?.vehicle?.model}</Typography>
+                                    <Typography variant="h5" sx={{ pl: 2 }}>{policy?.vehicle?.licensePlate}</Typography>
+                                    <Typography variant="h5" sx={{ pl: 2, mb: { xs: 2, md: 0 } }}>{policyData?.policyStartDate} – {policyData?.policyEndDate}</Typography>
                                 </Box>
 
                                 <Box sx={{ display: "flex", flexDirection: "column", pt: 1 }} border="0px solid green">
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[600] }}>Main Driver</Button>
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[900] }}>Omnium</Button>
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[900] }}>Protect</Button>
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "10px", backgroundColor: grey[900] }}>Leg Assistant</Button>
+                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[600] }}>{partyData?.partyRole=="Policy Holder"?"Main driver":"Main driver"}</Button>
+                                    {/* <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Omnium</Button>
+                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Protect</Button>
+                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Leg Assistant</Button> */}
+                                    {coverageCar?coverageCar.map((cov, index) => (  <Button key={index} variant="contained" sx={{mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900],  width: "100%", }}>{cov}</Button>)):
+                                    <><Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Omnium</Button>
+                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Protect</Button>
+                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Leg Assistant</Button></>}
                                 </Box>
                             </Box>
                         </Grid>
-                    </Grid>
+                    </Grid>:<></>}
+                                   
+                   </>
+                   )})}
+
                 </Grid>
 
                 {/* //second half */}
