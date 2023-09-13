@@ -12,7 +12,8 @@ import styles from "../../styles/style.module.css";
 import BackgroundImage from "@/components/background-image";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSearchResults, setUser } from "@/redux/slice/apiSearchSlice";
+import { fetchSearchResults, setUser, setPolicyResonse } from "@/redux/slice/apiSearchSlice";
+import { fetchGraphResults } from "@/redux/slice/graphQlSlice";
 import moment from "moment/moment";
 import SearchIcon from "@mui/icons-material/Search";
 import { ToastContainer, toast } from "react-toastify";
@@ -49,6 +50,9 @@ const Search = () => {
       if (value !== null) {
         push("/info");
         dispatch(setUser(value));
+        dispatch(fetchGraphResults());
+        //dispatch with value.id
+      // dispatch(fetchDetails(value.id))
         e.preventDefault();
       } else {
         toast.error("Please select atleast one name", {
@@ -64,7 +68,26 @@ const Search = () => {
   const navigateInfo = () => {
     if (value !== null) {
       push("/info");
+      console.log("value after navigation", value)
       dispatch(setUser(value));
+      dispatch(fetchGraphResults());
+     
+    } else {
+      toast.error("Please select atleast one name", {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+  };
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    if (newValue !== null) {
+      push("/info");
+      dispatch(setUser(newValue));
+      dispatch(fetchGraphResults());
     } else {
       toast.error("Please select atleast one name", {
         position: "top-right",
@@ -95,12 +118,12 @@ const Search = () => {
             },
           }}
           id="search-countries"
-          options={searchList && inputValue && inputValue.length > 3 ? searchList : []}
+          options={
+            searchList && inputValue && inputValue.length > 3 ? searchList : []
+          }
           className={styles.header_img}
           onInputChange={handleInputChange}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
+          onChange={handleChange}
           getOptionLabel={(option) =>
             option.FirstName +
             " " +
@@ -133,7 +156,6 @@ const Search = () => {
               <TextField
                 {...params}
                 placeholder="Search for a client"
-                onKeyPress={onKeyPress}
                 InputProps={{
                   ...params.InputProps,
                   endAdornment: (
