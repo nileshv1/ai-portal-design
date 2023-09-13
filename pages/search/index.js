@@ -12,7 +12,8 @@ import styles from "../../styles/style.module.css";
 import BackgroundImage from "@/components/background-image";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSearchResults, setUser } from "@/redux/slice/apiSearchSlice";
+import { fetchSearchResults, setUser, setPolicyResonse } from "@/redux/slice/apiSearchSlice";
+import { fetchGraphResults } from "@/redux/slice/graphQlSlice";
 import moment from "moment/moment";
 import SearchIcon from "@mui/icons-material/Search";
 import { ToastContainer, toast } from "react-toastify";
@@ -44,10 +45,33 @@ const Search = () => {
     }
   };
 
+  const onKeyPress = (e) => {
+    if (e.key == "Enter") {
+      if (value !== null) {
+        push("/info");
+        dispatch(setUser(value));
+        dispatch(fetchGraphResults());
+        //dispatch with value.id
+      // dispatch(fetchDetails(value.id))
+        e.preventDefault();
+      } else {
+        toast.error("Please select atleast one name", {
+          position: "top-right",
+          autoClose: 5000,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+      }
+    }
+  };
+
   const navigateInfo = () => {
     if (value !== null) {
       push("/info");
+      console.log("value after navigation", value)
       dispatch(setUser(value));
+      dispatch(fetchGraphResults());
+     
     } else {
       toast.error("Please select atleast one name", {
         position: "top-right",

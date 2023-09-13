@@ -8,6 +8,8 @@ const initialState = {
   loading: false,
   error: null,
   selectedUser: null,
+  policyResponse: null,
+  userDetails: null
 };
 
 // Create an async thunk for making the API request
@@ -47,6 +49,11 @@ const apiSearchSlice = createSlice({
       ...state,
       selectedUser: payload,
     }),
+    setPolicyResonse:(state, { payload }) => ({
+      ...state,
+      policyResponse: payload,
+      
+    }),
   },
   extraReducers: (builder) => {
     builder
@@ -66,5 +73,5 @@ const apiSearchSlice = createSlice({
       });
   },
 });
-export const { setUser } = apiSearchSlice.actions;
+export const { setUser , setPolicyResonse} = apiSearchSlice.actions;
 export default apiSearchSlice.reducer;
