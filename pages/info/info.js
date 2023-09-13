@@ -17,33 +17,33 @@ import Link from 'next/link';
 
 const Info = () => {
     const selectedUser = useSelector((state) => state.api.selectedUser);
+    const fullName = selectedUser?.FirstName + selectedUser?.Name
+    console.log(fullName, "fullName")
     const graphData = useSelector((state) => state.graphapi.graphResponse);
     console.log(graphData,"graphData")
-    // Create an object to store the unique policy information
-const uniquePolicies = {};
-
-// Iterate through the JSON data
-graphData.forEach((item) => {
-    const policyNumber = item.policy.policyNumber;
-    const policyVersionNumber = parseInt(item.policy.policyVersionNumber);
-    const policyType = item.policy.policyType;
-
- 
-
-    // Check if the policyType exists in the uniquePolicies object
-    if (!uniquePolicies.hasOwnProperty(policyType)) {
-        // If it doesn't exist, add the entire object
-        uniquePolicies[policyType] = item;
-    } else {
-        // If it exists, compare the policyVersionNumber and update if greater
-        if (policyVersionNumber > parseInt(uniquePolicies[policyType].policy.policyVersionNumber)) {
-            uniquePolicies[policyType] = item;
+    const uniquePolicies = {};
+    graphData.forEach((item) => {
+        const policyNumber = item.policy.policyNumber;
+        const policyVersionNumber = parseInt(item.policy.policyVersionNumber);
+        const policyType = item.policy.policyType;
+        const spkey = policyNumber + policyType
+    
+     
+    
+        // Check if the policyType exists in the uniquePolicies object
+        if (!uniquePolicies.hasOwnProperty(spkey)) {
+            // If it doesn't exist, add the entire object
+            uniquePolicies[spkey] = item;
+        } else {
+            // If it exists, compare the policyVersionNumber and update if greater
+            if (policyVersionNumber > parseInt(uniquePolicies[spkey].policy.policyVersionNumber)) {
+                uniquePolicies[spkey] = item;
+            }
         }
-    }
-});
-
-   // Convert the uniquePolicies object into an array of objects
-   const graphResponse = Object.values(uniquePolicies);
+    });
+    
+    // Convert the uniquePolicies object into an array of objects
+    const graphResponse = Object.values(uniquePolicies);
     console.log(graphResponse, "result filter data");
     const result = graphData[graphData?.length-1]
     // console.log(resultAPI, "resultAPI")
@@ -121,15 +121,15 @@ graphData.forEach((item) => {
                                         height={40}
                                         alt="Picture of the Person"
                                     />
-                                    <Typography variant="h3">{selectedUser.FirstName + " " + selectedUser.Name}</Typography>
+                                    <Typography variant="h3">{selectedUser?.FirstName + " " + selectedUser?.Name}</Typography>
                                 </Box>
                                 <Box sx={{ pl: 1 , width:"100%"}}  border="0px solid orange">
                                     <Typography variant="h5" component="span">{moment(selectedUser.BirthDate).format("DD MMM YYYY")+ ", " }</Typography>
-                                    <Typography variant="h5" component="span" sx={{fontWeight: 'bold'}}>{moment(selectedUser.BirthDate).fromNow() }</Typography>
-                                    <Typography variant="h5">{selectedUser.MobilePhoneNumber}</Typography>
+                                    <Typography variant="h5" component="span" sx={{fontWeight: 'bold'}}>{moment(selectedUser?.BirthDate).fromNow() }</Typography>
+                                    <Typography variant="h5">{selectedUser?.MobilePhoneNumber}</Typography>
                                     <Typography variant="h5" sx={{ pb: 2, width:"100%" }} border="0px solid orange">
                                         <Link href="/" style={{ display: "inline-block", maxWidth: "100%", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                                            {selectedUser.EmailAddress}
+                                            {selectedUser?.EmailAddress}
                                         </Link> 
                                     </Typography>                                                  
                                     <Typography variant="h5">{selectedUser.FullAddress}</Typography>
@@ -138,8 +138,14 @@ graphData.forEach((item) => {
                         </Grid>
                     </Grid>
                    
-                   {graphResponse.map((policy)=>{
+                   {graphResponse?.length>0 && graphResponse.map((policy)=>{
                         console.log(policy,"policy")
+                        console.log(policy.vehicle,"vehicle")
+                        // console.log(policy.vehicle[0].coverage,"vehicle")
+                        console.log(policy?.party,"party")
+                        console.log(policy?.building,"building")
+
+                        const partyFilter = policy?.party?.filter((p) => p.firstName + p.lastName === fullName)
                         return (
                         <>
                         {/* Second Block */}
@@ -157,29 +163,22 @@ graphData.forEach((item) => {
 
                                         />
                                         <Grid sx={{ ml: 2 }}>
-                                            <Typography variant="h3">{policyData?.policyType =="Car"?"Home":"Home"}</Typography>
-                                            <Typography variant="h5">{policyData?.policyNumber}</Typography>
+                                            <Typography variant="h3">{policy?.policy?.policyType}</Typography>
+                                            <Typography variant="h5">{policy?.policy?.policyNumber}</Typography>
                                         </Grid>
                                     </Box>
-                                    <Typography variant="h5" sx={{ pb: 2, pl: 2 }}>Kerkstraat 9, Leuven</Typography>
-                                    <Typography variant="h5" sx={{ pl: 2, mb: { xs: 2, md: 0 } }}>{policyData?.policyStartDate} – {policyData?.policyEndDate}</Typography>
+                                    <Typography variant="h5" sx={{ pb: 2, pl: 2 }}>{policy?.building[0]?.street} {policy?.building[0]?.streetNumber}, {policy?.building[0]?.city}</Typography>
+                                    <Typography variant="h5" sx={{ pl: 2, mb: { xs: 2, md: 0 } }}>{policy?.policy?.policyStartDate} – {policy?.policy?.policyEndDate}</Typography>
                                 </Box>
 
                                 <Box sx={{ display: "flex", flexDirection: "column", pt: 1 }} border="0px solid green">
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[600] }}>{partyData?.partyRole=="Main driver"?"Policy Holder":"Policy Holder"}</Button>
-                                    {/* <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Content</Button>
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Leg Assist</Button>
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>family</Button> */}
-                                    {/* {coverageCar?.map((cov, index)=>{
-                                        {console.log(cov,"cov")}
-                                      <Button key={index} variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>{cov}</Button> 
-                                    //   <h1>hia</h1>
-                                    })} */}
-                                    {coverageBuilding?
-                                    coverageBuilding.map((cov, index) => (  <Button key={index} variant="contained" sx={{mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900],  width: "100%", }}>{cov}</Button>))
-                                :<><Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Content</Button>
-                                <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Leg Assist</Button>
-                                <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>family</Button></>}
+                                    {partyFilter.map((cov, index) => (  
+                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[600] , width: "100%",}}>{cov.partyRole}</Button>))
+                                    }                              
+                                    {
+                                    policy?.building[0]?.coverage.map((cov, index) => (  
+                                    <Button key={index} variant="contained" sx={{mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900],  width: "100%", }}>{cov.coverageType}</Button>))
+                                    }
                                 </Box>
                             </Box>
                         </Grid>
@@ -199,24 +198,23 @@ graphData.forEach((item) => {
                                             alt="Picture of the Car"
                                         />
                                         <Box sx={{ ml: 2 }}>
-                                            <Typography variant="h3">{policy?.policy.policyType}</Typography>
-                                            <Typography variant="h5">{policy?.policy.policyNumber}</Typography>
+                                            <Typography variant="h3">{policy?.policy?.policyType}</Typography>
+                                            <Typography variant="h5">{policy?.policy?.policyNumber}</Typography>
                                         </Box>
                                     </Box>
-                                    <Typography variant="h5" sx={{ pl: 2 }}>{policy?.vehicle?.make} {policy?.vehicle?.model}</Typography>
-                                    <Typography variant="h5" sx={{ pl: 2 }}>{policy?.vehicle?.licensePlate}</Typography>
-                                    <Typography variant="h5" sx={{ pl: 2, mb: { xs: 2, md: 0 } }}>{policyData?.policyStartDate} – {policyData?.policyEndDate}</Typography>
+                                    <Typography variant="h5" sx={{ pl: 2 }}>{policy?.vehicle[0]?.make} {policy?.vehicle[0]?.model}</Typography>
+                                    <Typography variant="h5" sx={{ pl: 2 }}>{policy?.vehicle[0]?.licensePlate}</Typography>
+                                    <Typography variant="h5" sx={{ pl: 2, mb: { xs: 2, md: 0 } }}>{policy?.policy?.policyStartDate} – {policy?.policy?.policyEndDate}</Typography>
                                 </Box>
 
                                 <Box sx={{ display: "flex", flexDirection: "column", pt: 1 }} border="0px solid green">
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[600] }}>{partyData?.partyRole=="Policy Holder"?"Main driver":"Main driver"}</Button>
-                                    {/* <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Omnium</Button>
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Protect</Button>
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Leg Assistant</Button> */}
-                                    {coverageCar?coverageCar.map((cov, index) => (  <Button key={index} variant="contained" sx={{mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900],  width: "100%", }}>{cov}</Button>)):
-                                    <><Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Omnium</Button>
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Protect</Button>
-                                    <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900] }}>Leg Assistant</Button></>}
+                                    {policy?.party.map((cov, index) => (  
+                                    <Button key={index} variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[600],  width: "100%", }}>{cov.partyRole}</Button>))}
+                                    {/* <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[600] }}>{partyData?.partyRole=="Policy Holder"?"Main driver":"Main driver"}</Button> */}
+                                    {policy.vehicle[0].coverage.map((cov, index) => (  
+                                    <Button key={index} variant="contained" sx={{mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[900],  width: "100%", }}>{cov.coverageType}</Button>))
+                                    }
+                                   
                                 </Box>
                             </Box>
                         </Grid>
