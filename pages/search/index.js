@@ -87,6 +87,7 @@ const Search = () => {
     if (newValue !== null) {
       push("/info");
       dispatch(setUser(newValue));
+      dispatch(fetchGraphResults());
     } else {
       toast.error("Please select atleast one name", {
         position: "top-right",

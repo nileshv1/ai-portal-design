@@ -99,7 +99,7 @@ const Info = () => {
         <ThemeProvider theme={themeinfo}>
             <Grid >
             <BackgroundImage props={true} />
-            <Box sx={{ mx: "auto", width: { xs: "90%", md: "100%" } ,overflow: 'auto' , height:'100vh'}} border="0px solid green" 
+            <Box sx={{ mx: "auto", width: { xs: "90%", md: "100%",sm:"95%" } ,overflow: 'auto' , height:'100vh'}} border="0px solid green" 
              style={{position: "absolute",
                 left: 0,
                 right: 0,
@@ -109,9 +109,9 @@ const Info = () => {
                >
             
                 {/* //first half */}
-                <Grid container spacing={2} sx={{ mb: 2 }} border="0px solid pink" mt={4}>
+                <Grid container spacing={2} sx={{ mb: 2, pl:{xs:0, md:2} }} border="0px solid pink" mt={4}>
                     {/* First Block */}
-                    <Grid container item sm={4} display="flex" justifyContent="center" sx={{ pr: { xs: 0, md: 4 } }} border="0px solid orange" >
+                    <Grid container item sm={4} sx={{height: {xs:"50vh",sm:"60vh",md:"80vh",lg:"40vh"}}} display="flex" justifyContent="center"  border="0px solid orange" >
                         <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2, pl: 2, pb: 1, pr: 4 }} className={stylesInfo.whiteBg} border="0px solid blue">
                             <Box sx={{ display: "flex", flexDirection: "column",width:"100%" }} border="0px solid blue">
                                 <Box display="flex" alignItems="center" sx={{width:"100%"}} border="0px solid pink">
@@ -121,10 +121,10 @@ const Info = () => {
                                         height={40}
                                         alt="Picture of the Person"
                                     />
-                                    <Typography variant="h3">{selectedUser?.FirstName + " " + selectedUser?.Name}</Typography>
+                                    <Typography sx={{fontWeight:"bold",fontSize:{xs:20,md:22,sm:20}}} >{selectedUser?.FirstName + " " + selectedUser?.Name}</Typography>
                                 </Box>
                                 <Box sx={{ pl: 1 , width:"100%"}}  border="0px solid orange">
-                                    <Typography variant="h5" component="span">{moment(selectedUser.BirthDate).format("DD MMM YYYY")+ ", " }</Typography>
+                                    <Typography variant="h5" component="span">{moment(selectedUser?.BirthDate).format("DD MMM YYYY")+ ", " }</Typography>
                                     <Typography variant="h5" component="span" sx={{fontWeight: 'bold'}}>{moment(selectedUser?.BirthDate).fromNow() }</Typography>
                                     <Typography variant="h5">{selectedUser?.MobilePhoneNumber}</Typography>
                                     <Typography variant="h5" sx={{ pb: 2, width:"100%" }} border="0px solid orange">
@@ -132,7 +132,7 @@ const Info = () => {
                                             {selectedUser?.EmailAddress}
                                         </Link> 
                                     </Typography>                                                  
-                                    <Typography variant="h5">{selectedUser.FullAddress}</Typography>
+                                    <Typography variant="h5">{selectedUser?.FullAddress}</Typography>
                                 </Box>
                             </Box>
                         </Grid>
@@ -150,7 +150,7 @@ const Info = () => {
                         <>
                         {/* Second Block */}
                     {policy?.building?.length>0 ?
-                    <Grid container item sm={4} display="flex" justifyContent="center" border="0px solid orange" >
+                    <Grid container item sm={4} sx={{height: {xs:"50vh",sm:"60vh",md:"80vh",lg:"40vh"}}} display="flex" justifyContent="center" border="0px solid orange" >
                         <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} className={stylesInfo.whiteBg} border="0px solid blue">
                             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, width: { xs: "100%" } }} border="0px solid red">
                                 <Box border="0px solid red">
@@ -163,7 +163,7 @@ const Info = () => {
 
                                         />
                                         <Grid sx={{ ml: 2 }}>
-                                            <Typography variant="h3">{policy?.policy?.policyType}</Typography>
+                                            <Typography sx={{fontWeight:"bold",fontSize:{xs:20,md:22,sm:20}}}>{policy?.policy?.policyType}</Typography>
                                             <Typography variant="h5">{policy?.policy?.policyNumber}</Typography>
                                         </Grid>
                                     </Box>
@@ -171,7 +171,7 @@ const Info = () => {
                                     <Typography variant="h5" sx={{ pl: 2, mb: { xs: 2, md: 0 } }}>{policy?.policy?.policyStartDate} – {policy?.policy?.policyEndDate}</Typography>
                                 </Box>
 
-                                <Box sx={{ display: "flex", flexDirection: "column", pt: 1 }} border="0px solid green">
+                                <Box sx={{ display: "flex", flexDirection: "column", pt: 1,height:{xs:"15vh",md:"30vh",sm:"15vh"},overflowY:"auto" }} border="0px solid green">
                                     {partyFilter.map((cov, index) => (  
                                     <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[600] , width: "100%",}}>{cov.partyRole}</Button>))
                                     }                              
@@ -186,7 +186,7 @@ const Info = () => {
                     
                     {/* third Block */}
                     {policy?.vehicle?.length>0 ?
-                   <Grid container item sm={4} display="flex" justifyContent="center" border="0px solid orange" >
+                   <Grid container item sm={4} sx={{height: {xs:"50vh",sm:"60vh",md:"80vh",lg:"40vh"}}} display="flex" justifyContent="center" border="0px solid orange" >
                         <Grid container item md={11} sx={{ borderRadius: '24px', pt: 2, pl: { xs: 2, md: 5 }, pb: 1, pr: 3 }} className={stylesInfo.whiteBg} border="0px solid blue">
                             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, width: { xs: "100%" } }} border="0px solid red">
                                 <Box border="0px solid red">
@@ -197,8 +197,8 @@ const Info = () => {
                                             height={60}
                                             alt="Picture of the Car"
                                         />
-                                        <Box sx={{ ml: 2 }}>
-                                            <Typography variant="h3">{policy?.policy?.policyType}</Typography>
+                                        <Box sx={{ ml: 2}}>
+                                            <Typography sx={{fontWeight:"bold",fontSize:{xs:20,md:22,sm:20}}}>{policy?.policy?.policyType}</Typography>
                                             <Typography variant="h5">{policy?.policy?.policyNumber}</Typography>
                                         </Box>
                                     </Box>
@@ -207,7 +207,7 @@ const Info = () => {
                                     <Typography variant="h5" sx={{ pl: 2, mb: { xs: 2, md: 0 } }}>{policy?.policy?.policyStartDate} – {policy?.policy?.policyEndDate}</Typography>
                                 </Box>
 
-                                <Box sx={{ display: "flex", flexDirection: "column", pt: 1 }} border="0px solid green">
+                                <Box sx={{ display: "flex", flexDirection: "column", pt: 1,height:{xs:"15vh",md:"30vh",sm:"15vh"},overflowY:"auto" }} border="0px solid green">
                                     {policy?.party.map((cov, index) => (  
                                     <Button key={index} variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[600],  width: "100%", }}>{cov.partyRole}</Button>))}
                                     {/* <Button variant="contained" xs={12} sx={{ mb: 1, height: "26px", fontSize: "8px", backgroundColor: grey[600] }}>{partyData?.partyRole=="Policy Holder"?"Main driver":"Main driver"}</Button> */}
@@ -226,7 +226,7 @@ const Info = () => {
                 </Grid>
 
                 {/* //second half */}
-                <Grid container spacing={2} sx={{ display: "flex", flexDirection: { xs: "column-reverse", sm: "row" } }} >
+                <Grid container spacing={2} sx={{ display: "flex", flexDirection: { xs: "column-reverse", sm: "row" }  }} >
 
                     {/* search Block */}
                     <Grid container item sm={8} display="flex" justifyContent="center" border="0px solid orange" >
