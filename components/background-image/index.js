@@ -1,5 +1,15 @@
-import { nn_logo, img1, img2, img3, img4 } from "@/public/images";
-import { Grid } from "@mui/material";
+import {
+  nn_logo,
+  img1,
+  img2,
+  img3,
+  img4,
+  flagDutch,
+  flagFrance,
+  flagGer,
+  flagUK,
+} from "@/public/images";
+import { Box, Grid } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import styles from "../../styles/style.module.css";
@@ -36,14 +46,50 @@ const BackgroundImage = ({ props }) => {
     }
   }, []);
 
+  const [highlightedImage, setHighlightedImage] = useState(0);
+
+  const handleImageClick = (imageIndex) => {
+    setHighlightedImage(imageIndex);
+  };
+
+  const router = useRouter();
+  const flagImages = [flagUK, flagDutch, flagFrance, flagGer];
+
   return (
     <Grid>
-     
       <Image
         className={styles.bg_img}
         src={randomImageUrl ? randomImageUrl : imageUrls[0]}
         alt="Banner Image"
       />
+      <Box className={styles.flagImg} sx={{ display: "flex" }}>
+        {router.pathname == "/home" || router.pathname == "/search" ? (
+          <Image
+            width={30}
+            height={30}
+            className={styles.highlighted}
+            src={flagUK}
+          />
+        ) : (
+          <>
+            {flagImages.map((image, index) => (
+              <Image
+                width={30}
+                height={30}
+                alt={`Image ${index + 1}`}
+                className={
+                  index === highlightedImage
+                    ? styles.highlighted
+                    : styles.flagDutchImg
+                }
+                onClick={() => handleImageClick(index)}
+                key={index}
+                src={image}
+              />
+            ))}
+          </>
+        )}
+      </Box>
       {props == true ? (
         <button onClick={getRandomImage} className={styles.close_btn}>
           x

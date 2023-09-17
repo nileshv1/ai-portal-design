@@ -44,7 +44,7 @@
   position: absolute;
   top: 12px;
   margin: auto;
-  right: 13px;
+  right: 15px;
   cursor: pointer;
   z-index: 9;
 }
@@ -68,4 +68,49 @@
     width: 230px;
     height: 50px;
   }
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card {
+  margin-bottom: 16px; /* Adjust this for your desired spacing */
+  /* Add other card styles here */
+}
+
+.navigation_arrows {
+  padding-top: 115px;
+}
+
+.disabledButton[disabled] {
+  background-color: "red";
+}
+
+.MyCustomButton:hover {
+  background-color: #fff !important;
+}
+
+.flagImg {
+  padding: 0 10px 8px 0;
+  cursor: pointer;
+  position: absolute;
+  right: 60px;
+  top: 10px;
+}
+
+.flagDutchImg {
+  padding: 0 10px 8px 0;
+  cursor: pointer;
+  z-index: 9;
+  transition: transform 0.2s;
+}
+
+.highlighted {
+  cursor: pointer;
+  padding: 0 10px 8px 0;
+  transform: scale(1.4);
 }
