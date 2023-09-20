@@ -69,3 +69,20 @@
     height: 50px;
   }
 }
+
+
+.disabled:disabled {    
+  background-color: red !important  
+} 
+.navigation_arrows {
+  padding-top: 7rem;
+  padding-left:0.3rem;
+  padding-right:0.3rem;
+}
+@media only screen and (max-width: 608px) {
+  .navigation_arrows {
+    padding-top: 1rem;
+    padding-left:0.3rem;
+    padding-right:0.3rem;
+  }
+}

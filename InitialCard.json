@@ -1,0 +1,34 @@
+[
+	{
+		"Order": 1,
+		"BoxTile": "Attention Points",
+		"BoxAIQuestion_EN": "Give me a short factual overview in bullet points in order of importance and if there is something to say, on: the financial situation, the recent changes on the policy, missing important data and any open claims for @FirstName @LastName. Don't add any other comments or closing phrases. No need to give an overview of his policies. No need to tell if there is no claim, no recent changes, no missing data",
+		"BoxAIQuestion_FR": "Donne moi une courte liste de 'bullet points', par ordre d'importance et s'il y a quelque chose à mentionner sur: la situation financière, les changements récents sur les polices, les données manquantes et les sinistres ouvert pour @FirstName @LastName. Pas besoin de donner un aperçu de toutes les polices d'assurance. Au cas ou il n'y a  pas de sinistres, pas de changements récents ni de données manquantes, pas besoin de le mentionner dans le listing. Pas de commentaire de début ni de fin. Juste la liste de points",
+		"BoxAIQuestion_NL": "Geef me een korte lijst van 'bullet points' in volgerde van belang over: de financiële situatie, de recente aanpassingen op de polis, de ontbrekende gegevens en de open schades voor @FirstName @LastName. Indien er geen recente aanpassingen zijn geweest, geen schades of ontbrekende gegevens moet dit niet in de lijst gemeld worden. Voeg geen commentaar in het begin of einde. Alleen de lijst.",
+		"BoxAIQuestion_DE": "Give me a short factual overview in bullet points in order of importance and if there is something to say, on: the financial situation, the recent changes on the policy, missing important data and any open claims for @FirstName @LastName. Don't add any other comments or closing phrases. No need to give an overview of his policies. No need to tell if there is no claim, no recent changes, no missing data"
+	},
+	{
+		"Order": 2,
+		"BoxTile": "Upsell Opportunities",
+		"BoxAIQuestion_EN": "Give me a short factual overview in bullet points in order of probability to materialize of Upsell opportunities for @FirstName @LastName. Don't add any other comments or closing phrases. Don't add the probabilities in the answer. Emphasize important words by putting those between this symbol '*'",
+		"BoxAIQuestion_FR": "Donne moi une courte liste factuelle en 'bullet points' par ordre de proabilité que cela se matérialise des opportunité d'Upsell pour @FirstName @LastName. N'ajoute pas de commentaires additionnels, juste la liste de points. Ne pas mettre la probabilité dans la réponse. Entoure les mots importants du symbole '*'",
+		"BoxAIQuestion_NL": "Geef me een korte lijst van 'bullet points' in volgerde van probabiliteit van de Upsell mogelijkheden voor @FirstName @LastName. Voeg geen commentaar in het begin of einde. Alleen de lijst. De probabiliteit zelf mag niet in het antwoord zitten. Omring belangrijke woorden met het symbool '*'",
+		"BoxAIQuestion_DE": "Give me a short factual overview in bullet points in order of probability to materialize of Upsell opportunities for @FirstName @LastName. Don't add any other comments or closing phrases. Don't add the probabilities in the answer"
+	},
+	{
+		"Order": 3,
+		"BoxTile": "Current Discounts",
+		"BoxAIQuestion_EN": "Repeat the following phrase: '- Car Summer Discount has been extended till *31/9*'",
+		"BoxAIQuestion_FR": "Répète la phrase suivante: '- La Auto promotion d'été est maintenant valable jusqu'au *31/9*'",
+		"BoxAIQuestion_NL": "Herhaal de volgende vraag: '- De Auto Zomer korting wordt verlengd tot *31/9*'",
+		"BoxAIQuestion_DE": ""
+	},
+	{
+		"Order": 4,
+		"BoxTile": "Some fun news",
+		"BoxAIQuestion_EN": "Repeat the following phrase: '- Car Summer Discount has been extended till *31/9*'",
+		"BoxAIQuestion_FR": "Répète la phrase suivante: '- La Auto promotion d'été est maintenant valable jusqu'au *31/9*'",
+		"BoxAIQuestion_NL": "Herhaal de volgende vraag: '- De Auto Zomer korting wordt verlengd tot *31/9*'",
+		"BoxAIQuestion_DE": ""
+	}
+]

@@ -63,7 +63,7 @@ const Search = () => {
         });
       }
     }
-  };
+  }
 
   const navigateInfo = () => {
     if (value !== null) {
