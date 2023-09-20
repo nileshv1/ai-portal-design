@@ -13,6 +13,10 @@ import {
   FormHelperText,
   Switch
 } from "@mui/material";
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import InputAdornment from "@mui/material/InputAdornment";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -114,7 +118,6 @@ const Info = () => {
     var x = 5;
     var intervalID = setInterval(() => {
       if (boxRef.current) {
-        console.log(boxRef.current.scrollTop, boxRef.current.scrollHeight);
         boxRef.current.scrollTop = boxRef.current.scrollHeight;
       }
       if (x === 5) {
@@ -127,11 +130,11 @@ const Info = () => {
   };
   console.log(inputValue, "inputValue")
   console.log(btnClick, "btnClick")
- 
+
   const handleEnter = (e) => {
-    console.log(e,"key")
+    console.log(e, "key")
     if (e.key == "Enter" && inputValue !== '') {
-      console.log(e.key,"key")
+      console.log(e.key, "key")
       setBtnClick(true)
       // dispatch(que)
       apiResponse.push({
@@ -142,7 +145,6 @@ const Info = () => {
       var x = 5;
       var intervalID = setInterval(() => {
         if (boxRef.current) {
-          console.log(boxRef.current.scrollTop, boxRef.current.scrollHeight);
           boxRef.current.scrollTop = boxRef.current.scrollHeight;
         }
         if (x === 5) {
@@ -755,16 +757,45 @@ const Info = () => {
               >
                 <Box sx={{ height: "100%", overflowY: "auto", width: "100%" }}
                   ref={boxRef}
-                  border="0px solid pink"
+                  border="0px solid orange"
                 >
                   {apiResponse.length > 0 &&
                     apiResponse.map((qna) => {
                       console.log(qna, "qna")
+                      const [like, setLike] = useState(false);
+                      const [dislike, setDislike] = useState(false);
+                      const qnaRef = useRef(null);
+                      // const inputRef = useRef(null);
+
+                      const handleLike = () => {
+                        setLike(!like);
+                        setDislike(false);
+                        // if(inputRef.current){
+                        //   inputRef.current.focus()
+                        // }
+                        if (qnaRef.current) {
+                          // console.log(boxRef.current.scrollTop, boxRef.current.scrollHeight);
+                          qnaRef.current.scrollTop = qnaRef.current.scrollHeight;
+                          boxRef.current.scroll(80, 10);
+                        }
+                      };
+                      const handleDislike = () => {
+                        setDislike(!dislike);
+                        setLike(false);
+                        if (qnaRef.current) {
+                          // console.log(boxRef.current.scrollTop, boxRef.current.scrollHeight);
+                          qnaRef.current.scrollTop = qnaRef.current.scrollHeight;
+                        }
+                  
+                      };
+                     
+                      
                       return (
                         <Box sx={{
                           display: "flex",
                           flexDirection: "column",
                           width: "100%",
+                          // overflowY: "auto"
                         }}
                           border="2px solid green"
                         >
@@ -795,6 +826,7 @@ const Info = () => {
                                   pl: 1,
                                   pb: 1,
                                   mr: 1,
+                                  mt: 1,
                                   backgroundColor: grey[900],
                                   color: "white",
                                 }}
@@ -804,38 +836,112 @@ const Info = () => {
                             </Box>
                           </Box>}
 
-                          {/* Answer */}
-                          {qna.result.bot ? <Box
-                            sx={{
-                              display: "flex",
-                              flexDirection: "row",
-                              alignItems: "center",
-                              width: { xs: "100%" },
-                            }}
-                          >
-                            <Image
-                              src="/images/answer.svg"
-                              width={30}
-                              height={30}
-                              alt="Picture of the back"
-                            />
-                            <Box>
-                              <Typography
-                                variant="h4"
+                          {/* Answer qna1 */}
+                          {qna.result.bot ? <Box sx={{ display: "flex", flexDirection: "column" }}>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                width: { xs: "100%" },
+                                // position:"relative"
+                              }}
+                              border="0px solid red"
+                            >
+                              <Image
+                                src="/images/answer.svg"
+                                width={30}
+                                height={30}
+                                alt="Picture of the back"
+                              />
+                              <Box
+                                border="0px solid blue"
                                 sx={{
-                                  ml: 1,
-                                  mb: { xs: 1 },
-                                  pr: { xs: 1, },
-                                  pt: 1,
-                                  pl: 1,
-                                  pb: 1,
                                   width: "90%",
                                   backgroundColor: grey[300],
+                                  // mb: { xs: 1 },
                                 }}
                               >
-                                {qna.result.bot}
-                              </Typography>
+                                <Typography
+                                  variant="h4"
+                                  sx={{
+                                    ml: 1,
+                                    pr: { xs: 1, },
+                                    pt: 1,
+                                    pl: 1,
+                                    pb: 1,
+                                  }}
+                                >
+                                  {qna.result.bot}
+                                </Typography>
+                                <Box
+                                  border="0px solid red"
+                                  sx={{
+                                    display: "flex",
+                                    justifyContent: "flex-end"
+                                  }}
+                                >
+                                  {like ?
+                                    <IconButton aria-label="delete" size="large"
+                                      onClick={() => {
+                                        handleLike()
+                                      }}
+                                    >
+                                      <ThumbUpAltIcon fontSize="inherit" />
+                                    </IconButton>
+                                    :
+                                    <IconButton aria-label="delete" size="large"
+                                      onClick={() => {
+                                        handleLike()
+                                      }}
+                                      sx={{ filter: dislike ? "blur(1px)" : "none",}}
+                                      // disabled={dislike ? true : false}
+                                    >
+                                      <ThumbUpOffAltIcon fontSize="inherit" />
+                                    </IconButton>
+
+                                  }
+
+                                  {dislike ?
+                                    <IconButton aria-label="delete" size="large"
+                                      onClick={() => {
+                                        handleDislike()
+                                      }}
+                                    >
+                                      <ThumbDownAltIcon fontSize="inherit" />
+                                    </IconButton>
+                                    :
+                                    <IconButton aria-label="delete" size="large"
+                                      onClick={() => {
+                                        handleDislike()
+                                      }}
+                                      sx={{ filter: like ? "blur(1px)" : "none",}}
+                                      // disabled={like ? true : false}
+                                    >
+                                      <ThumbDownOffAltIcon fontSize="inherit" />
+                                    </IconButton>
+                                  }
+                                </Box>
+                              </Box>
                             </Box>
+                            {like || dislike ?
+                              <Box
+                                border="0px solid purple"
+                                sx={{
+                                  display: "flex",
+                                  justifyContent: "flex-end",
+                                  mr: {xs:1,md:4},
+                                  height: "40px"
+                                }}>
+                                <TextField id="outlined-basic" size="small" variant="outlined"
+                                  sx={{ width: "70%" }}
+                                  // inputRef={inputRef}
+                                  inputRef={input => input && input.focus()}
+                                  placeholder="Give your feedback here"
+                                />
+                              </Box> :
+                              <></>}
                           </Box> : <><ThreeDots
                             height="15"
                             width="90"
@@ -868,7 +974,7 @@ const Info = () => {
                   pr: 3,
                   ml: { md: 3, sm: 1 },
                   boxSizing: "border-box",
-                  height:"20vh"
+                  height: "20vh"
                 }}
                 className={stylesInfo.whiteBg}
                 border="1px solid blue"
@@ -917,13 +1023,13 @@ const Info = () => {
                             disableUnderline: true,
                           }}
                           defaultValue=""
-                          onKeyPress = {(e) => handleEnter(e)}
+                          onKeyPress={(e) => handleEnter(e)}
                         />
                       </FormControl>
                     </Box>
                     <Box sx={{
                       display: "flex", alignItems: "center",
-                      mr:2
+                      mr: 2
 
                     }}
                       border="0px solid pink">
