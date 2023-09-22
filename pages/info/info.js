@@ -36,6 +36,7 @@ import moment from "moment/moment";
 import Link from "next/link";
 import { ThreeDots } from 'react-loader-spinner'
 import styles from "../../styles/style.module.css";
+import { setPolicyDetails } from "@/redux/slice/apiSearchSlice";
 
 const Info = () => {
   const boxRef = useRef(null);
@@ -271,6 +272,13 @@ const Info = () => {
     }
     setCurrentPage((prevPage) => prevPage - 1);
   };
+  const dispatch = useDispatch()
+  const handleImage = (policy) => {
+    console.log(policy, "Policy Image")
+    dispatch(setPolicyDetails(policy))
+    push("/policy");
+
+  }
 
   return (
     <ThemeProvider theme={themeinfo}>
@@ -463,12 +471,17 @@ const Info = () => {
                                 mb: 2,
                               }}
                             >
-                              <Image
-                                src="/images/home.svg"
-                                width={50}
-                                height={50}
-                                alt="Picture of the author"
-                              />
+                              <IconButton aria-label="delete" size="small"
+                                onClick={() => {
+                                  handleImage(policy)
+                                }}>
+                                <Image
+                                  src="/images/home.svg"
+                                  width={50}
+                                  height={50}
+                                  alt="Picture of the author"
+                                />
+                              </IconButton>
                               <Box sx={{ ml: 1 }}>
                                 <Typography
                                   sx={{
@@ -587,12 +600,17 @@ const Info = () => {
                               }}
                               border="0px solid green"
                             >
-                              <Image
-                                src="/images/car.svg"
-                                width={60}
-                                height={60}
-                                alt="Picture of the Car"
-                              />
+                              <IconButton aria-label="delete" size="small"
+                                onClick={() => {
+                                  handleImage(policy)
+                                }}>
+                                <Image
+                                  src="/images/car.svg"
+                                  width={60}
+                                  height={60}
+                                  alt="Picture of the Car"
+                                />
+                              </IconButton>
                               <Box sx={{ ml: 1 }} border="0px solid green">
                                 <Typography
                                   sx={{
@@ -786,10 +804,24 @@ const Info = () => {
                           // console.log(boxRef.current.scrollTop, boxRef.current.scrollHeight);
                           qnaRef.current.scrollTop = qnaRef.current.scrollHeight;
                         }
-                  
+
                       };
-                     
-                      
+                      // const res = "Jacques Chirac has 8 active policies with NN Non-Life. He has 3 vehicle/moto policies, 1 Home policy, 1 Family policy, and 3 Home and Family policies. His current policies include car, motor/moped, home, and family insurance. Some of the highlighted information includes the policy numbers, policy types, insurance products, and coverage details. Jacques Chirac also has 4 open claims on his policies. Possible follow-up questions: ['What are the coverage details for Jacques Chirac's vehicle/moto policies?', 'Can you provide more information about Jacques Chirac's open claims?', 'Are there any upsell opportunities for Jacques Chirac's policies?']"
+                      // // const result = response.match(/\[([^\]]+)\]/);
+                      // // const r1 = result[0].slice(1, -1).split(",")
+                      // // console.log(r1, "result 1")
+                      // const fIndex = res.indexOf("[")
+                      // const lIndex = res.indexOf("]")
+                      // const result = res.slice(fIndex + 1, lIndex)
+                      // const r1 = result.split(', ')
+                      const output = {
+                        "user": "Based on the previous question and answer provide a list of 3 short possible follow up questions in a json with the following structure: ['Question1','Question2','Question3']. Nothing more than the json itself.",
+                        "bot": "['What are the coverage options for ING Fire Insurance?', 'How can I apply for ING Fire Insurance?', 'What is the process for filing a claim with ING Fire Insurance?']"
+                      }
+                      const output1 = output.bot.slice(1,-1)
+                      const r1 = output1.split(", ")
+                      console.log(r1,"output")
+
                       return (
                         <Box sx={{
                           display: "flex",
@@ -797,7 +829,7 @@ const Info = () => {
                           width: "100%",
                           // overflowY: "auto"
                         }}
-                          border="2px solid green"
+                          border="0px solid green"
                         >
                           {/* Question */}
                           {qna.result.user && <Box
@@ -847,7 +879,7 @@ const Info = () => {
                                 width: { xs: "100%" },
                                 // position:"relative"
                               }}
-                              border="0px solid red"
+                              border="2px solid red"
                             >
                               <Image
                                 src="/images/answer.svg"
@@ -895,8 +927,8 @@ const Info = () => {
                                       onClick={() => {
                                         handleLike()
                                       }}
-                                      sx={{ filter: dislike ? "blur(1px)" : "none",}}
-                                      // disabled={dislike ? true : false}
+                                      sx={{ filter: dislike ? "blur(1px)" : "none", }}
+                                    // disabled={dislike ? true : false}
                                     >
                                       <ThumbUpOffAltIcon fontSize="inherit" />
                                     </IconButton>
@@ -916,8 +948,8 @@ const Info = () => {
                                       onClick={() => {
                                         handleDislike()
                                       }}
-                                      sx={{ filter: like ? "blur(1px)" : "none",}}
-                                      // disabled={like ? true : false}
+                                      sx={{ filter: like ? "blur(1px)" : "none", }}
+                                    // disabled={like ? true : false}
                                     >
                                       <ThumbDownOffAltIcon fontSize="inherit" />
                                     </IconButton>
@@ -931,7 +963,7 @@ const Info = () => {
                                 sx={{
                                   display: "flex",
                                   justifyContent: "flex-end",
-                                  mr: {xs:1,md:4},
+                                  mr: { xs: 1, md: 4 },
                                   height: "40px"
                                 }}>
                                 <TextField id="outlined-basic" size="small" variant="outlined"
@@ -942,6 +974,28 @@ const Info = () => {
                                 />
                               </Box> :
                               <></>}
+                            <Box sx={{ ml: 1, display: "flex", flexDirection: "row", alignItems: "center" }}
+                              border="0px solid purple">
+                              <Box>
+                                <Image
+                                  src="/images/man.png"
+                                  width={80}
+                                  height={80}
+                                  alt="Picture of the back"
+                                />
+                              </Box>
+                              <Box>
+                                {/* {result[0]} */}
+                                {r1.map(btn => {
+                                  return (
+                                    <Button variant="outlined" sx={{ minWidth: 0, px: 1, py: 0, my: 1, color: "#125597", border: "1px solid #12559799", fontWeight: "bold" }}>
+                                      {btn.slice(1, -1)}
+                                    </Button>
+                                  )
+                                })}
+
+                              </Box>
+                            </Box>
                           </Box> : <><ThreeDots
                             height="15"
                             width="90"
