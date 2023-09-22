@@ -7,6 +7,10 @@ import flagDutch from '../../public/images/Flag/Dutch.png'
 import flagFrance from '../../public/images/Flag/france.png'
 import flagUK from '../../public/images/Flag/united-kingdom.png'
 import flagGer from '../../public/images/Flag/germany.png'
+import scooter from '../../public/images/scooter.jpg'
+import car from '../../public/images/car.jpg'
+import family from '../../public/images/family.jpg'
+import home from '../../public/images/home.jpg'
 
 export {
   nn_logo,
@@ -18,5 +22,8 @@ export {
   flagGer,
   flagDutch,
   flagUK,
-
+  scooter,
+  car,
+  family,
+  home
 };
