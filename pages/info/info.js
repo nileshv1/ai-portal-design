@@ -103,7 +103,6 @@ const Info = () => {
     }
   };
   const [inputValue, setInputValue] = useState('');
-  const [que, setQue] = useState("");
   const [btnClick, setBtnClick] = useState(false)
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -116,6 +115,9 @@ const Info = () => {
         user: inputValue
       }
     })
+    // const [lastResult, setLastResult] = {}
+    // const lastResult = apiResponse[apiResponse.length-1]
+
     var x = 5;
     var intervalID = setInterval(() => {
       if (boxRef.current) {
@@ -280,6 +282,18 @@ const Info = () => {
 
   }
 
+
+  const [que, setQue] = useState("");
+  const handleQue = (que1) => {
+    setQue(que)
+    apiResponse.push({
+      result: {
+        user: que1
+      }
+    })
+
+    console.log(que1, "question")
+  }
   return (
     <ThemeProvider theme={themeinfo}>
       <Grid>
@@ -806,21 +820,14 @@ const Info = () => {
                         }
 
                       };
-                      // const res = "Jacques Chirac has 8 active policies with NN Non-Life. He has 3 vehicle/moto policies, 1 Home policy, 1 Family policy, and 3 Home and Family policies. His current policies include car, motor/moped, home, and family insurance. Some of the highlighted information includes the policy numbers, policy types, insurance products, and coverage details. Jacques Chirac also has 4 open claims on his policies. Possible follow-up questions: ['What are the coverage details for Jacques Chirac's vehicle/moto policies?', 'Can you provide more information about Jacques Chirac's open claims?', 'Are there any upsell opportunities for Jacques Chirac's policies?']"
-                      // // const result = response.match(/\[([^\]]+)\]/);
-                      // // const r1 = result[0].slice(1, -1).split(",")
-                      // // console.log(r1, "result 1")
-                      // const fIndex = res.indexOf("[")
-                      // const lIndex = res.indexOf("]")
-                      // const result = res.slice(fIndex + 1, lIndex)
-                      // const r1 = result.split(', ')
                       const output = {
                         "user": "Based on the previous question and answer provide a list of 3 short possible follow up questions in a json with the following structure: ['Question1','Question2','Question3']. Nothing more than the json itself.",
-                        "bot": "['What are the coverage options for ING Fire Insurance?', 'How can I apply for ING Fire Insurance?', 'What is the process for filing a claim with ING Fire Insurance?']"
-                      }
-                      const output1 = output.bot.slice(1,-1)
-                      const r1 = output1.split(", ")
-                      console.log(r1,"output")
+                        "bot": "[\"What are the coverage options for Mini-Omnium and Omnium?\", \"What are the benefits of having family coverage?\", \"Can you provide more details about the open claims on Jacques Chirac's policies?\"]"
+                    }
+                      const result = output.bot.slice(1, -1)
+                      let filterResult = result.replace(/["\\]/g, '');
+                      const r1 = filterResult.split(",")
+                      console.log(r1, "r1")
 
                       return (
                         <Box sx={{
@@ -829,7 +836,7 @@ const Info = () => {
                           width: "100%",
                           // overflowY: "auto"
                         }}
-                          border="0px solid green"
+                          border="2px solid green"
                         >
                           {/* Question */}
                           {qna.result.user && <Box
@@ -987,8 +994,11 @@ const Info = () => {
                               <Box>
                                 {/* {result[0]} */}
                                 {r1.map(btn => {
+
                                   return (
-                                    <Button variant="outlined" sx={{ minWidth: 0, px: 1, py: 0, my: 1, color: "#125597", border: "1px solid #12559799", fontWeight: "bold" }}>
+                                    <Button variant="outlined" sx={{ minWidth: 0, px: 1, py: 0, my: 1, color: "#125597", border: "1px solid #12559799", fontWeight: "bold" }}
+                                      onClick={() =>{handleQue(btn.slice(1, -1))}}
+                                    >
                                       {btn.slice(1, -1)}
                                     </Button>
                                   )
