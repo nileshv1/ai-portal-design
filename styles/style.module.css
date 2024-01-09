@@ -86,3 +86,7 @@
     padding-right:0.3rem;
   }
 }
+
+.myText::first-letter{
+  text-transform:uppercase;
+}

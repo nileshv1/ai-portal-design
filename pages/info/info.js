@@ -823,7 +823,7 @@ const Info = () => {
                       const output = {
                         "user": "Based on the previous question and answer provide a list of 3 short possible follow up questions in a json with the following structure: ['Question1','Question2','Question3']. Nothing more than the json itself.",
                         "bot": "[\"What are the coverage options for Mini-Omnium and Omnium?\", \"What are the benefits of having family coverage?\", \"Can you provide more details about the open claims on Jacques Chirac's policies?\"]"
-                    }
+                      }
                       const result = output.bot.slice(1, -1)
                       let filterResult = result.replace(/["\\]/g, '');
                       const r1 = filterResult.split(",")
@@ -994,12 +994,25 @@ const Info = () => {
                               <Box>
                                 {/* {result[0]} */}
                                 {r1.map(btn => {
-
+                                  // const string = 'billing account'; 
+                                  // let newArr = btn.split(' ');
+                                  // newArr[1] = newArr[0].charAt(0).toUpperCase() + newArr[0].slice(1); 
+                                  const newText =btn.slice(1, -1)
+                                  console.log(newText,"newText")
                                   return (
-                                    <Button variant="outlined" sx={{ minWidth: 0, px: 1, py: 0, my: 1, color: "#125597", border: "1px solid #12559799", fontWeight: "bold" }}
-                                      onClick={() =>{handleQue(btn.slice(1, -1))}}
+                                    <Button variant="outlined" sx={{
+                                      minWidth: 0, px: 1, py: 0, mb: "10px",
+                                      textAlign: "left", fontSize: "14px",
+                                      color: "#125597", border: "1px solid #12559799", fontWeight: "bold"
+                                    }}
+                                      onClick={() => { handleQue(btn.slice(1, -1)) }}
+                                      style={{
+                                        textTransform:'none', // This transforms the text to lowercase  }
+
+                                      }}
+                                      className={styles.myText}
                                     >
-                                      {btn.slice(1, -1)}
+                                      {newText}
                                     </Button>
                                   )
                                 })}

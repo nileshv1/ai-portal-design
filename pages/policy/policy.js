@@ -714,6 +714,8 @@ const Policy = () => {
     ]
     const policyDetails = useSelector((state) => state.api.policyDetails);
     console.log(policyDetails, "policyDetails")
+    const currency = policyDetails.policy.currency === "EUR" ? "€" : "";
+    console.log(currency, "currency")
     const selectedUser = useSelector((state) => state.api.selectedUser);
     console.log(selectedUser, "selectedUser")
     const fullName = selectedUser?.FirstName + selectedUser?.Name;
@@ -797,9 +799,11 @@ const Policy = () => {
     }));
     console.log(data, "data")
     const VehiclePolicySimulationsOnTodaysDate = data[8].VehiclePolicySimulationsOnTodaysDate
+    console.log(VehiclePolicySimulationsOnTodaysDate,"VehiclePolicySimulationsOnTodaysDate")
     const CurrentPolicies = data[2].CurrentPolicies
     console.log(CurrentPolicies, "CurrentPolicies")
     // const policyNumber = policyDetails?.policy?.policyNumber
+    // const policyNumber = "60112548"
     const policyNumber = "60112548"
     console.log(policyNumber, "policyNumber")
     const resultItem = VehiclePolicySimulationsOnTodaysDate.find(item => item.mobilityPremiumResponse && item.mobilityPremiumResponse[0].policyNumber === policyNumber);
@@ -903,21 +907,23 @@ const Policy = () => {
                                                     }
                                                     console.log(ptotal, "total")
                                                 }
-                                                const newNumber2 = parseFloat(row.proposal.replaceAll(',', ''))
-                                                const newNumber1 = parseFloat(row.situation?.replaceAll(',', ''))
-                                                console.log(newNumber1, newNumber2, newNumber1 > newNumber2)
+                                                const Number2 = parseFloat(row.proposal.replaceAll(',', ''))
+                                                const Number1 = parseFloat(row.situation?.replaceAll(',', ''))
+                                                // console.log(newNumber1, newNumber2, newNumber1 > newNumber2)
 
                                                 return (
                                                     <StyledTableRow key={row.coverage}>
                                                         <StyledTableCell align="left">
                                                             {row.coverageType}
                                                         </StyledTableCell>
-                                                        <StyledTableCell align="right">{row.situation}</StyledTableCell>
+                                                        <StyledTableCell align="right">
+                                                            {`${row.situation.replaceAll('.', ',')}  ${row.situation ? currency : ""}`}
+                                                        </StyledTableCell>
                                                         <StyledTableCell align="right">
                                                             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                                                                 <Box>
-                                                                    {newNumber1 ?
-                                                                        newNumber1 > newNumber2 ?
+                                                                    {Number1 ?
+                                                                        Number1 > Number2 ?
                                                                             <Image
                                                                                 src="/images/downArrow.png"
                                                                                 width={20}
@@ -935,7 +941,9 @@ const Policy = () => {
                                                                             alt="Picture of the author"
                                                                         />}
                                                                 </Box>
-                                                                <Box>{row.proposal}</Box>
+                                                                <Box>
+                                                                    {`${row.proposal.replaceAll('.', ',')}  ${row.proposal ? currency : ""}`}
+                                                                </Box>
                                                             </Box>
                                                         </StyledTableCell>
                                                         <StyledTableCell padding="checkbox" component={Paper} >
@@ -957,8 +965,13 @@ const Policy = () => {
                                         <TableHead>
                                             <StyledTableRow>
                                                 <StyledTableCell align="left">Total</StyledTableCell>
-                                                <StyledTableCell align="right">{ctotal.toLocaleString("en-US")}</StyledTableCell>
-                                                <StyledTableCell align="right">{ptotal.toLocaleString("en-US")}</StyledTableCell>
+                                                <StyledTableCell align="right">
+                                                    {/* {ctotal.toLocaleString("en-US").replaceAll('.', ',')} */}
+                                                    { `${ctotal.toLocaleString("en-US").replaceAll('.', ',')}  ${ctotal?currency:""}`}
+                                                </StyledTableCell>
+                                                <StyledTableCell align="right">
+                                                { `${ptotal.toLocaleString("en-US").replaceAll('.', ',')}  ${ptotal?currency:""}`}
+                                                    </StyledTableCell>
                                             </StyledTableRow>
                                         </TableHead>
                                     </Table>
